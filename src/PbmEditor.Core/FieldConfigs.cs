@@ -62,6 +62,7 @@ public static class FieldConfigs
         .Add("joueur_middle", "Middle name", "Identity")
         .Add("joueur_suffixe", "Suffix", "Identity")
         .Add("joueur_surnom", "Nickname", "Identity")
+        .Add("sexe", "Gender", "Identity", choices: GameService.GenderChoices)
         .Add("team_id", "Team", "Identity", choices: GameService.TeamChoicesWithFreeAgent)
         .Add("numero_actuel", "Jersey number (255 = none)", "Identity")
         .Add("nationalite", "Nationality", "Identity", choices: GameService.CountryChoices)
@@ -73,10 +74,10 @@ public static class FieldConfigs
         .Add("poids", "Weight (kg)", "Body & age")
         .Add("main_droite", "Right hand", "Body & age", FieldKind.Slider, 0, 20, 0.5)
         .Add("main_gauche", "Left hand", "Body & age", FieldKind.Slider, 0, 20, 0.5)
-        .Add("couleur", "Skin colour (0-60)", "In-game look", FieldKind.Slider, 0, 60)
+        .Add("couleur", "Skin colour", "In-game look", choices: GameService.SkinChoices)
         .Add("type_coiffure", "Hairstyle", "In-game look", choices: GameService.HairstyleChoices)
-        .Add("couleur_cheveux", "Hair colour (0-4)", "In-game look", FieldKind.Slider, 0, 4)
-        .Add("type_barbe", "Beard (0 = none)", "In-game look")
+        .Add("couleur_cheveux", "Hair colour", "In-game look", choices: GameService.HairColorChoices)
+        .Add("type_barbe", "Beard", "In-game look", choices: GameService.BeardChoices)
         .Add("moyenne", "Overall rating", "Rating", FieldKind.Real)
         .Add("joueur_valeur", "Market value", "Rating")
         .Add("aptitude_meneur", "Aptitude: PG", "Positions", FieldKind.Slider, 0, 100)
@@ -121,6 +122,64 @@ public static class FieldConfigs
         s.Add("cache_frequence_blessure", "Injury frequency", "Rating", FieldKind.Real);
         return s;
     }
+
+    public static FieldSet Person()
+    {
+        var s = new FieldSet()
+            .Add("id_person", "Person ID", "Identity")
+            .Add("prenom", "First name", "Identity")
+            .Add("nom", "Last name", "Identity")
+            .Add("sexe", "Gender", "Identity", choices: GameService.GenderChoices)
+            .Add("equipe_id", "Team", "Identity", choices: GameService.TeamChoicesWithFreeAgent)
+            .Add("nationalite_id", "Nationality", "Identity", choices: GameService.CountryChoices)
+            .Add("nationalite_bis", "2nd nationality", "Identity", choices: GameService.CountryChoicesWithNone)
+            .Add("jour_naissance", "Birth day", "Body & age")
+            .Add("mois_naissance", "Birth month", "Body & age")
+            .Add("annee_naissance", "Birth year", "Body & age")
+            .Add("is_alive", "Alive", "Body & age", FieldKind.Bool)
+            .Add("retraite", "Retired", "Body & age", FieldKind.Bool)
+            .Add("couleur_peau", "Skin colour", "In-game look", choices: GameService.SkinChoices)
+            .Add("type_coiffure", "Hairstyle", "In-game look", choices: GameService.HairstyleChoices)
+            .Add("couleur_cheveux", "Hair colour", "In-game look", choices: GameService.HairColorChoices)
+            .Add("type_barbe", "Beard", "In-game look", choices: GameService.BeardChoices)
+            .Add("world_reputation", "World reputation", "Skills", FieldKind.Slider, 0, 100);
+        void A(string col, string label) => s.Add(col, label, "Skills", FieldKind.Slider, 1, 20, 0.5);
+        A("attribut_gestion_joueur", "Player management");
+        A("attribut_formation", "Youth development");
+        A("attribut_entrainement", "Training");
+        A("attribut_tactique_offensive", "Offensive tactics");
+        A("attribut_tactique_defensive", "Defensive tactics");
+        A("attribut_experience", "Experience");
+        A("attribut_sang_froid", "Composure");
+        A("attribut_gestion_arbitre", "Referee management");
+        A("attribute_coaching", "Coaching");
+        A("attribute_physical_training", "Physical training");
+        A("attribute_physio", "Physiotherapy");
+        A("attribute_analysis_video", "Video analysis");
+        A("attribute_judging_level", "Scouting: current level");
+        A("attribute_judging_potential", "Scouting: potential");
+        A("attribute_negotiating", "Negotiating");
+        A("attribute_professionalism", "Professionalism");
+        A("attribute_ambition", "Ambition");
+        A("attribute_loyalty", "Loyalty");
+        return s;
+    }
+
+    public static FieldSet PersonContract() => new FieldSet()
+        .Add("id", "Contract ID", "Contract")
+        .Add("job_type", "Role", "Contract", choices: GameService.JobTypeChoices)
+        .Add("salaire", "Monthly salary", "Contract")
+        .Add("prime", "Bonus", "Contract")
+        .Add("victoire_championnat", "League title bonus", "Contract")
+        .Add("victoire_coupe", "Cup win bonus", "Contract")
+        .Add("debut_jour", "Start day", "Term")
+        .Add("debut_mois", "Start month", "Term")
+        .Add("debut_annee", "Start year", "Term")
+        .Add("fin_jour", "End day", "Term")
+        .Add("fin_mois", "End month", "Term")
+        .Add("fin_annee", "End year", "Term")
+        .Add("has_expiration_date", "Has end date", "Term", FieldKind.Bool)
+        .Add("id_equipe", "Team", "Contract", choices: GameService.TeamChoices);
 
     public static FieldSet Contract() => new FieldSet()
         .Add("id", "Contract ID", "Contract")

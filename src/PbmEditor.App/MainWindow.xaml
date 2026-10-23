@@ -4,6 +4,8 @@
              xmlns:loc="clr-namespace:PbmEditor.App"
         xmlns:v="clr-namespace:PbmEditor.App.Views"
         Title="PBM Editor" Height="860" Width="1380" Closing="Window_Closing">
+  <Window.Resources><BooleanToVisibilityConverter x:Key="BoolToVis"/></Window.Resources>
+  <Grid>
   <DockPanel IsEnabled="{Binding IsNotBusy}">
     <Grid DockPanel.Dock="Top" Margin="4">
       <Grid.ColumnDefinitions>
@@ -33,4 +35,14 @@
       <TabItem Header="{loc:T 'Raw tables'}"><v:RawView DataContext="{Binding Raw}"/></TabItem>
     </TabControl>
   </DockPanel>
+  <!-- busy overlay: blocks input and tells what is going on -->
+  <Border Background="#B0FFFFFF" Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}">
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" BorderBrush="#888" BorderThickness="1" CornerRadius="6" Padding="28,20">
+      <StackPanel MinWidth="360">
+        <TextBlock Text="{Binding BusyText}" FontSize="16" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+        <ProgressBar IsIndeterminate="True" Height="10" Margin="0,14,0,0"/>
+      </StackPanel>
+    </Border>
+  </Border>
+  </Grid>
 </Window>

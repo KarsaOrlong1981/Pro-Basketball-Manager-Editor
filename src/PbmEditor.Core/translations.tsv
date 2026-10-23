@@ -318,3 +318,85 @@ File	Datei	Fichier
 New mod...	Neue Mod...	Nouveau mod...
 Create a new mod from the default game data	Neue Mod aus den Standarddaten des Spiels erstellen	Créer un nouveau mod à partir des données par défaut du jeu
 Language:	Sprache:	Langue :
+Skin colour	Hautfarbe	Couleur de peau
+Hair colour	Haarfarbe	Couleur des cheveux
+Beard	Bart	Barbe
+White	Weiß	Blanc
+Tanned	Gebräunt	Bronzé
+Mixed	Gemischt	Métis
+Brown	Braun	Brun
+Dark brown	Dunkelbraun	Brun foncé
+Black	Schwarz	Noir
+Asian	Asiatisch	Asiatique
+Dark brown hair	Dunkelbraun	Brun foncé
+Chestnut	Kastanienbraun	Châtain
+Blond	Blond	Blond
+Red	Rot	Roux
+Grey	Grau	Gris
+None	Keiner	Aucune
+Goatee	Ziegenbart	Bouc
+Goatee + moustache	Ziegenbart + Schnurrbart	Bouc + moustache
+Moustache	Schnurrbart	Moustache
+Chin strap	Kinnbart	Collier
+Full beard	Vollbart	Barbe fournie
+Sideburns	Koteletten	Rouflaquettes
+In-game avatar (live preview)	Avatar im Spiel (Live-Vorschau)	Avatar en jeu (aperçu en direct)
+Game images not found: avatar preview unavailable.	Spielbilder nicht gefunden: Avatar-Vorschau nicht verfügbar.	Images du jeu introuvables : aperçu de l'avatar indisponible.
+The game draws this avatar for players without a photo file. The 3D match view uses the same values with different models.	Das Spiel zeigt diesen Avatar für Spieler ohne Fotodatei. Die 3D-Spielansicht nutzt dieselben Werte, aber andere Modelle.	Le jeu affiche cet avatar pour les joueurs sans fichier photo. La vue 3D du match utilise les mêmes valeurs avec d'autres modèles.
+Person ID	Personen-ID	ID de la personne
+Alive	Lebt	En vie
+Retired	Im Ruhestand	Retraité
+World reputation	Weltweites Ansehen	Réputation mondiale
+Skills	Fähigkeiten	Compétences
+Player management	Spielerführung	Gestion des joueurs
+Youth development	Nachwuchsförderung	Formation des jeunes
+Training	Training	Entraînement
+Offensive tactics	Offensivtaktik	Tactique offensive
+Defensive tactics	Defensivtaktik	Tactique défensive
+Referee management	Umgang mit Schiedsrichtern	Gestion des arbitres
+Coaching	Coaching	Coaching
+Physical training	Athletiktraining	Préparation physique
+Physiotherapy	Physiotherapie	Kinésithérapie
+Video analysis	Videoanalyse	Analyse vidéo
+Scouting: current level	Scouting: aktuelles Niveau	Recrutement : niveau actuel
+Scouting: potential	Scouting: Potenzial	Recrutement : potentiel
+Negotiating	Verhandeln	Négociation
+Professionalism	Professionalität	Professionnalisme
+Ambition	Ehrgeiz	Ambition
+Loyalty	Loyalität	Loyauté
+Role	Rolle	Rôle
+Has end date	Hat Enddatum	A une date de fin
+Male	Männlich	Masculin
+Female	Weiblich	Féminin
+Head coach	Cheftrainer	Entraîneur principal
+Assistant coach	Co-Trainer	Entraîneur adjoint
+Offence coach	Offensivtrainer	Entraîneur offensif
+Defence coach	Defensivtrainer	Entraîneur défensif
+Scout	Scout	Recruteur
+Physiotherapist	Physiotherapeut	Kinésithérapeute
+Physical trainer	Athletiktrainer	Préparateur physique
+Doctor	Arzt	Médecin
+Head of youth development	Leiter Nachwuchs	Responsable de la formation
+Director	Sportdirektor	Directeur
+Chairman	Vorsitzender	Président du conseil
+Owner	Eigentümer	Propriétaire
+no contract	kein Vertrag	pas de contrat
+Release staff member	Mitarbeiter entlassen	Libérer le membre du staff
+Release this staff member? The active contract is deleted.	Diesen Mitarbeiter entlassen? Der aktive Vertrag wird gelöscht.	Libérer ce membre du staff ? Le contrat actif est supprimé.
+The game draws this avatar for staff without a photo file.	Das Spiel zeigt diesen Avatar für Mitarbeiter ohne Fotodatei.	Le jeu affiche cet avatar pour le staff sans fichier photo.
+Switching language...	Sprache wird gewechselt...	Changement de langue...
+Creating mod...	Mod wird erstellt...	Création du mod...
+Opening database...	Datenbank wird geöffnet...	Ouverture de la base de données...
+Loading teams, players and leagues...	Teams, Spieler und Ligen werden geladen...	Chargement des équipes, joueurs et ligues...
+Saving...	Wird gespeichert...	Enregistrement...
+Writing changes...	Änderungen werden geschrieben...	Écriture des modifications...
+Checking database integrity...	Datenbank-Integrität wird geprüft...	Vérification de l'intégrité de la base...
+Refreshing...	Ansicht wird aktualisiert...	Actualisation...
+Discarding changes...	Änderungen werden verworfen...	Abandon des modifications...
+2D avatar: the game has no picture for this style.	2D-Avatar: Für diese Frisur hat das Spiel kein Bild.	Avatar 2D : le jeu n'a pas d'image pour cette coiffure.
+2D avatar: this style draws no hair.	2D-Avatar: Diese Frisur zeichnet keine Haare.	Avatar 2D : cette coiffure ne dessine pas de cheveux.
+2D avatar: same picture as style {0}.	2D-Avatar: dasselbe Bild wie Frisur {0}.	Avatar 2D : même image que la coiffure {0}.
+3D match view: no hair model for this style (bare head).	3D-Spielansicht: Für diese Frisur gibt es kein Haarmodell (kahler Kopf).	Vue 3D du match : pas de modèle de cheveux pour cette coiffure (tête nue).
+3D match view: same hair model as style {0}.	3D-Spielansicht: dasselbe Haarmodell wie Frisur {0}.	Vue 3D du match : même modèle de cheveux que la coiffure {0}.
+3D match view: beards 1-3 are not drawn.	3D-Spielansicht: Die Bärte 1-3 werden nicht gezeichnet.	Vue 3D du match : les barbes 1 à 3 ne sont pas dessinées.
+{0} (not available for this gender)	{0} (für dieses Geschlecht nicht verfügbar)	{0} (non disponible pour ce sexe)

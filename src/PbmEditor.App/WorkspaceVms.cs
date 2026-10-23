@@ -29,7 +29,7 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
     TeamItem? _selected;
     LeagueItem? _leagueFilter;
     PlayerItem? _selectedPlayer;
-    TableGrid? _staffContracts, _staffPersons;
+    StaffItem? _selectedStaff;
     string _finance = "";
 
     public ObservableCollection<LeagueItem> Leagues { get; } = new();
@@ -41,8 +41,19 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
     public bool NoArena => _selected != null && !HasArena;
     public string Finance { get => _finance; private set => Set(ref _finance, value); }
     public PlayerVm? Player { get; private set; }
-    public TableGrid? StaffContracts { get => _staffContracts; private set => Set(ref _staffContracts, value); }
-    public TableGrid? StaffPersons { get => _staffPersons; private set => Set(ref _staffPersons, value); }
+    public ObservableCollection<StaffItem> Staff { get; } = new();
+    public PersonVm? Person { get; private set; }
+
+    public StaffItem? SelectedStaff
+    {
+        get => _selectedStaff;
+        set
+        {
+            try { Person?.Flush(); }
+            catch (FormatException e) { Dialogs.Error(e.Message); Resync(nameof(SelectedStaff)); return; }
+            if (Set(ref _selectedStaff, value)) LoadPerson();
+        }
+    }
 
     public ImageSlot Logo { get; }
     public ImageSlot JerseyHome { get; }
@@ -126,7 +137,7 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
     {
         Players.Clear();
         _team = _arena = null; TeamFields = new(); ArenaFields = new();
-        StaffContracts = StaffPersons = null;
+        Staff.Clear(); _selectedStaff = null; Person = null;
         Finance = "";
         Player = null;
         foreach (var s in new[] { Logo, JerseyHome, JerseyAway, ArenaInside, ArenaOutside }) s.SetId(_selected?.Id);
@@ -144,8 +155,7 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
             }
             RefreshPlayers();
             RefreshFinance();
-            StaffContracts = GridHelper.Make(_db, "DYN_contrat_person", "id_equipe", id);
-            StaffPersons = GridHelper.Make(_db, "DYN_person", "equipe_id", id);
+            RefreshStaff();
         }
         foreach (var p in new[] { nameof(TeamFields), nameof(ArenaFields), nameof(HasArena), nameof(NoArena), nameof(Player) }) Notify(p);
     }
@@ -174,6 +184,29 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
         Notify(nameof(Player));
     }
 
+    void RefreshStaff()
+    {
+        var keep = _selectedStaff?.Id;
+        Staff.Clear();
+        if (_selected != null) foreach (var s in GameService.StaffOfTeam(_db, _selected.Id)) Staff.Add(s);
+        _selectedStaff = keep == null ? null : Staff.FirstOrDefault(s => s.Id == keep);
+        Notify(nameof(SelectedStaff));
+    }
+
+    void LoadPerson()
+    {
+        Person = _selectedStaff == null ? null
+            : new PersonVm(_db, _store, _selectedStaff.Id, _selected!.Id, GameService.Teams(_db).Where(t => t.Id != _selected.Id).ToList(), OnStaffStructureChanged);
+        Notify(nameof(Person));
+    }
+
+    void OnStaffStructureChanged()
+    {
+        RefreshStaff();
+        RefreshFinance();
+        LoadPerson();
+    }
+
     void OnPlayerStructureChanged()
     {
         RefreshPlayers();
@@ -196,7 +229,7 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
         _team?.Save();
         _arena?.Save();
         Player?.Flush();
-        GridHelper.Apply(StaffContracts, StaffPersons);
+        Person?.Flush();
         if (_selected != null) { RefreshFinance(); }
     }
 }

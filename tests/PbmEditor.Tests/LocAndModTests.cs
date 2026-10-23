@@ -24,6 +24,22 @@ public class LocTests
     }
 
     [Fact]
+    public void EveryFieldLabelAndGroupHasATranslation()
+    {
+        Loc.Language = "en";
+        var known = Loc.Entries.Select(e => e.En).ToHashSet();
+        var sets = new[]
+        {
+            FieldConfigs.Team(), FieldConfigs.Arena(), FieldConfigs.Player(), FieldConfigs.Attributes(), FieldConfigs.Contract(),
+            FieldConfigs.Person(), FieldConfigs.PersonContract(), FieldConfigs.League(), FieldConfigs.Rules(),
+        };
+        var missing = sets.SelectMany(s => s.Items).SelectMany(i => new[] { i.Spec.Label, i.Spec.Group }).Where(k => !known.Contains(k)).Distinct().ToList();
+        Assert.True(missing.Count == 0, "Missing translations: " + string.Join(" | ", missing));
+        var choiceDb = new[] { GameService.JobTypeName(0), GameService.JobTypeName(35) };
+        Assert.All(choiceDb, k => Assert.Contains(k, known));
+    }
+
+    [Fact]
     public void SwitchesLanguage_AndFallsBackToEnglish()
     {
         try

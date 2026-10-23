@@ -88,6 +88,21 @@ public class DbTests
     }
 
     [Fact]
+    public void HairstylesAreFilteredByGender_AndKeepAnUnsuitableCurrentValue()
+    {
+        using var t = new TempDb(); using var db = t.Open();
+        db.Execute("CREATE TABLE STA_coiffures (type_coiffure INT, nom TEXT, sexe INT)");
+        db.Execute("INSERT INTO STA_coiffures VALUES (0,'Rase',0),(1,'Court',0),(100,'Queue',1),(101,'Tresses',1)");
+        var male = GameService.HairstyleChoicesFor(db, false, 1);
+        Assert.Equal(new long[] { 0, 1 }, male.Select(c => c.Value).ToArray());
+        var female = GameService.HairstyleChoicesFor(db, true, 100);
+        Assert.Equal(new long[] { 100, 101 }, female.Select(c => c.Value).ToArray());
+        var odd = GameService.HairstyleChoicesFor(db, false, 100); // woman's style on a man: stays selectable, flagged
+        Assert.Equal(new long[] { 0, 1, 100 }, odd.Select(c => c.Value).ToArray());
+        Assert.Contains("not available", odd.Last().Label);
+    }
+
+    [Fact]
     public void TableGrid_InsertUpdateDelete()
     {
         using var t = new TempDb(); using var db = t.Open();

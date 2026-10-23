@@ -10,6 +10,11 @@ public sealed record TeamItem(long Id, string Name, long LeagueId, string League
     public override string ToString() => $"{Name}  [{LeagueName}]";
 }
 
+public sealed record StaffItem(long Id, string Name, long JobType, long Salary)
+{
+    public string Role => GameService.JobTypeName(JobType);
+}
+
 public sealed record PlayerItem(long Id, string First, string Last, double Rating, long Number, long Salary)
 {
     public string Name => $"{First} {Last}".Trim();
@@ -80,6 +85,36 @@ public static class GameService
         db.Query("SELECT id, nom_ville_en FROM DYN_ville ORDER BY nom_ville_en").Select(r => new Choice(r.Int("id"), $"{r.Str("nom_ville_en")} ({r.Int("id")})"))
             .Prepend(new Choice(0, Loc.T("(none)"))).ToList());
 
+    // appearance values as defined in the game code (Couleurs_Peau_CONSTANTES, Coiffures_CONSTANTES)
+    public static IReadOnlyList<Choice> SkinChoices(PbmDatabase db) => new[]
+    {
+        new Choice(0, Loc.T("White")), new Choice(10, Loc.T("Tanned")), new Choice(20, Loc.T("Mixed")), new Choice(30, Loc.T("Brown")),
+        new Choice(40, Loc.T("Dark brown")), new Choice(50, Loc.T("Black")), new Choice(60, Loc.T("Asian")),
+    };
+
+    public static IReadOnlyList<Choice> HairColorChoices(PbmDatabase db) => new[]
+    {
+        new Choice(0, Loc.T("Black")), new Choice(1, Loc.T("Dark brown hair")), new Choice(2, Loc.T("Chestnut")), new Choice(3, Loc.T("Blond")),
+        new Choice(4, Loc.T("Red")), new Choice(5, Loc.T("Grey")), new Choice(6, Loc.T("White")),
+    };
+
+    public static IReadOnlyList<Choice> BeardChoices(PbmDatabase db) => new[]
+    {
+        new Choice(0, Loc.T("None")), new Choice(1, Loc.T("Goatee")), new Choice(2, Loc.T("Goatee + moustache")), new Choice(3, Loc.T("Moustache")),
+        new Choice(4, Loc.T("Chin strap")), new Choice(5, Loc.T("Full beard")), new Choice(6, Loc.T("Sideburns")),
+    };
+
+    /// <summary>Hairstyles for one gender (STA_coiffures.sexe). A current value outside the list stays selectable, marked as unsuitable.</summary>
+    public static IReadOnlyList<Choice> HairstyleChoicesFor(PbmDatabase db, bool female, long current)
+    {
+        var list = db.Query("SELECT DISTINCT type_coiffure, nom FROM STA_coiffures WHERE sexe=@p0 ORDER BY type_coiffure", female ? 1 : 0)
+            .Select(r => new Choice(r.Int("type_coiffure"), $"{r.Int("type_coiffure")} - {r.Str("nom")}")).ToList();
+        if (list.All(c => c.Value != current)) list.Add(new Choice(current, Loc.F("{0} (not available for this gender)", current)));
+        return list;
+    }
+
+    public static IReadOnlyList<Choice> GenderChoices(PbmDatabase db) => new[] { new Choice(0, Loc.T("Male")), new Choice(1, Loc.T("Female")) };
+
     public static IReadOnlyList<Choice> HairstyleChoices(PbmDatabase db) => Cached(db, "hair", () =>
         db.Query("SELECT DISTINCT type_coiffure, nom FROM STA_coiffures ORDER BY type_coiffure")
             .Select(r => new Choice(r.Int("type_coiffure"), $"{r.Int("type_coiffure")} - {r.Str("nom")}")).ToList());
@@ -145,6 +180,37 @@ public static class GameService
 
     public static long? ActiveContractId(PbmDatabase db, long playerId, long teamId) =>
         db.Scalar("SELECT id FROM DYN_contrat WHERE id_joueur=@p0 AND accepte=0 AND id_equipe=@p1 LIMIT 1", playerId, teamId) is { } v ? Convert.ToInt64(v) : null;
+
+    // ---- staff ----
+
+    static readonly (long Id, string Name)[] JobTypes =
+    {
+        (0, "Head coach"), (1, "Assistant coach"), (10, "Offence coach"), (11, "Defence coach"), (15, "Scout"), (16, "Physiotherapist"),
+        (20, "Physical trainer"), (21, "Doctor"), (30, "Head of youth development"), (35, "Director"), (40, "Chairman"), (50, "Owner"),
+    };
+
+    public static string JobTypeName(long id) => JobTypes.Any(j => j.Id == id) ? Loc.T(JobTypes.First(j => j.Id == id).Name) : $"#{id}";
+
+    public static IReadOnlyList<Choice> JobTypeChoices(PbmDatabase db) => JobTypes.Select(j => new Choice(j.Id, Loc.T(j.Name))).ToList();
+
+    public static List<StaffItem> StaffOfTeam(PbmDatabase db, long teamId) =>
+        db.Query(@"SELECT p.id_person, p.prenom, p.nom, c.job_type, c.salaire
+                   FROM DYN_person p
+                   LEFT JOIN DYN_contrat_person c ON c.id_person=p.id_person AND c.accepte=0 AND c.id_equipe=@p0
+                   WHERE p.equipe_id=@p0", teamId)
+            .Select(r => new StaffItem(r.Int("id_person"), $"{Dec(r["prenom"])} {Dec(r["nom"])}".Trim(), r["job_type"] is null ? -1 : r.Int("job_type"), r.Int("salaire")))
+            .OrderBy(s => s.JobType).ThenBy(s => s.Name).ToList();
+
+    public static long? ActiveStaffContractId(PbmDatabase db, long personId, long teamId) =>
+        db.Scalar("SELECT id FROM DYN_contrat_person WHERE id_person=@p0 AND accepte=0 AND id_equipe=@p1 LIMIT 1", personId, teamId) is { } v ? Convert.ToInt64(v) : null;
+
+    /// <summary>Moves a staff member to another team (contract follows), or releases them (team 0, contract deleted).</summary>
+    public static void MoveStaff(PbmDatabase db, long personId, long newTeamId)
+    {
+        db.Execute("UPDATE DYN_person SET equipe_id=@p0 WHERE id_person=@p1", newTeamId, personId);
+        if (newTeamId == 0) db.Execute("DELETE FROM DYN_contrat_person WHERE id_person=@p0 AND accepte=0", personId);
+        else db.Execute("UPDATE DYN_contrat_person SET id_equipe=@p0 WHERE id_person=@p1 AND accepte=0", newTeamId, personId);
+    }
 
     // ---- teams / finance ----
 

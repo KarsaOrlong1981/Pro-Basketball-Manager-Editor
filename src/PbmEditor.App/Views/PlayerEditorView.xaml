@@ -7,6 +7,13 @@
     <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
     <StackPanel Orientation="Horizontal">
       <v:ImageSlotView DataContext="{Binding Photo}"/>
+      <StackPanel Margin="4" Width="190">
+        <TextBlock Text="{loc:T 'In-game avatar (live preview)'}" FontWeight="SemiBold"/>
+        <Border BorderBrush="LightGray" BorderThickness="1" Background="#EEE" Height="160" Margin="0,2">
+          <Image Source="{Binding Avatar}" Stretch="Uniform"/>
+        </Border>
+        <TextBlock Text="{Binding AvatarInfo}" Foreground="Gray" FontSize="10" TextWrapping="Wrap"/>
+      </StackPanel>
       <StackPanel Margin="8,4" VerticalAlignment="Top" MinWidth="320">
         <TextBlock Text="{Binding Header}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap"/>
         <CheckBox Content="{loc:T 'Adjust overall rating when attributes change (0.036 per point)'}" IsChecked="{Binding AutoAdjustOverall}" Margin="3,6"/>

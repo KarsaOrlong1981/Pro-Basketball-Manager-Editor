@@ -43,7 +43,16 @@ public sealed class Field : ObservableObject
     public double Step { get; init; } = 1;
     public bool ReadOnly { get; init; }
     public bool Encoded { get; init; }
-    public IReadOnlyList<Choice>? Choices { get; init; }
+    IReadOnlyList<Choice>? _choices;
+    public IReadOnlyList<Choice>? Choices { get => _choices; init => _choices = value; }
+
+    /// <summary>Swaps the list of a choice field at runtime (e.g. hairstyles when the gender changes); the value is kept.</summary>
+    public void ReplaceChoices(IReadOnlyList<Choice> choices)
+    {
+        _choices = choices;
+        Notify(nameof(Choices));
+        Notify(nameof(ChoiceValue)); // re-select the stored value in the new list
+    }
     public string OriginalText { get; set; } = "";
     public object? OriginalValue { get; set; }
 

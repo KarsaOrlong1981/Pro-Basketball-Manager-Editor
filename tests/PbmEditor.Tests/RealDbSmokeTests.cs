@@ -47,6 +47,27 @@ public class RealDbSmokeTests
     }
 
     [Fact]
+    public void StaffEditorsLoadAndMoveRoundTrips()
+    {
+        using var db = OpenReal(out _);
+        if (db == null) return;
+        var staff = GameService.StaffOfTeam(db, 85);
+        Assert.NotEmpty(staff);
+        var s = staff[0];
+        Assert.True(new RowEditor(db, "DYN_person", "id_person", s.Id, FieldConfigs.Person()).Exists);
+        var cid = GameService.ActiveStaffContractId(db, s.Id, 85);
+        Assert.NotNull(cid);
+        Assert.True(new RowEditor(db, "DYN_contrat_person", "id", cid!.Value, FieldConfigs.PersonContract()).Exists);
+
+        GameService.MoveStaff(db, s.Id, 78);
+        Assert.Contains(GameService.StaffOfTeam(db, 78), x => x.Id == s.Id);
+        GameService.MoveStaff(db, s.Id, 0);
+        Assert.Null(GameService.ActiveStaffContractId(db, s.Id, 0));
+        db.Rollback();
+        Assert.Contains(GameService.StaffOfTeam(db, 85), x => x.Id == s.Id);
+    }
+
+    [Fact]
     public void RoundTripEditAndRollback_LeavesDatabaseUntouched()
     {
         using var db = OpenReal(out _);

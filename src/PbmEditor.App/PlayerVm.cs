@@ -16,6 +16,9 @@ public sealed class PlayerVm : ObservableObject
     public long TeamId { get; private set; }
     public List<Field> Fields { get; private set; } = new();
     public ImageSlot Photo { get; }
+    System.Windows.Media.Imaging.BitmapSource? _avatar;
+    public System.Windows.Media.Imaging.BitmapSource? Avatar { get => _avatar; private set => Set(ref _avatar, value); }
+    public string AvatarInfo { get; private set; } = "";
     public string Header { get; private set; } = "";
     public IReadOnlyList<TeamItem> MoveTargets { get; }
     public TeamItem? MoveTarget { get => _moveTarget; set => Set(ref _moveTarget, value); }
@@ -56,6 +59,45 @@ public sealed class PlayerVm : ObservableObject
         Header = Loc.F("{0} {1}  -  age {2}, overall {3}", _info["joueur_prenom"]?.Text, _info["joueur_nom"]?.Text, age, _info["moyenne"]?.Text) +
                  (_contract == null && TeamId != 0 ? Loc.T("  (no active contract)") : "");
         Notify(nameof(Fields)); Notify(nameof(Header));
+
+        FilterHairstyles();
+        foreach (var f in Fields.Where(f => f.Name is "sexe" or "couleur" or "type_coiffure" or "couleur_cheveux" or "type_barbe"))
+            f.PropertyChanged += (_, e) =>
+            {
+                if (e.PropertyName != nameof(Field.Text)) return;
+                if (f.Name == "sexe") FilterHairstyles();
+                RenderAvatar();
+            };
+        RenderAvatar();
+    }
+
+    /// <summary>Only hairstyles that exist for the player's gender are offered.</summary>
+    void FilterHairstyles()
+    {
+        if (_info["type_coiffure"] is not { } hair) return;
+        long.TryParse(hair.Text, out var current);
+        var female = _info["sexe"]?.Text == "1";
+        hair.ReplaceChoices(GameService.HairstyleChoicesFor(_db, female, current));
+    }
+
+    /// <summary>Live preview of the game's 2D avatar for the current (even unsaved) appearance values.</summary>
+    void RenderAvatar()
+    {
+        static int N(Field? f) => int.TryParse(f?.Text, out var v) ? v : 0;
+        string? home = null, away = null;
+        if (TeamId != 0 && _db.Query("SELECT couleur_home, couleur_away FROM DYN_equipe WHERE id_equipe=@p0", TeamId).FirstOrDefault() is { } t)
+        {
+            home = t["couleur_home"]?.ToString(); away = t["couleur_away"]?.ToString();
+        }
+        Avatar = AvatarKit.Render(N(_info["sexe"]) == 1, home, away, N(_info["couleur"]), N(_info["couleur_cheveux"]), N(_info["type_barbe"]), N(_info["type_coiffure"]));
+        AvatarInfo = Avatar == null ? Loc.T("Game images not found: avatar preview unavailable.")
+            : Loc.T("The game draws this avatar for players without a photo file. The 3D match view uses the same values with different models.");
+        if (Avatar != null)
+        {
+            var note = AvatarKit.HairNote(N(_info["sexe"]) == 1, N(_info["type_coiffure"]), N(_info["type_barbe"]));
+            if (note.Length > 0) AvatarInfo += "\n" + note;
+        }
+        Notify(nameof(AvatarInfo));
     }
 
     /// <summary>Writes edits into the DB transaction; adjusts the overall rating by the attribute change.</summary>

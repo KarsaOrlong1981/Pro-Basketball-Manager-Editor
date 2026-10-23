@@ -1,0 +1,28 @@
+<UserControl x:Class="PbmEditor.App.Views.PersonEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PbmEditor.App"
+             xmlns:v="clr-namespace:PbmEditor.App.Views">
+  <Grid>
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal">
+      <v:ImageSlotView DataContext="{Binding Photo}"/>
+      <StackPanel Margin="4" Width="190">
+        <TextBlock Text="{loc:T 'In-game avatar (live preview)'}" FontWeight="SemiBold"/>
+        <Border BorderBrush="LightGray" BorderThickness="1" Background="#EEE" Height="160" Margin="0,2">
+          <Image Source="{Binding Avatar}" Stretch="Uniform"/>
+        </Border>
+        <TextBlock Text="{Binding AvatarInfo}" Foreground="Gray" FontSize="10" TextWrapping="Wrap"/>
+      </StackPanel>
+      <StackPanel Margin="8,4" VerticalAlignment="Top" MinWidth="320">
+        <TextBlock Text="{Binding Header}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap"/>
+        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+          <ComboBox ItemsSource="{Binding MoveTargets}" SelectedItem="{Binding MoveTarget}" MinWidth="230" TextSearch.TextPath="Name"/>
+          <Button Content="{loc:T 'Move to team'}" Command="{Binding MoveCommand}"/>
+        </StackPanel>
+        <Button Content="{loc:T 'Release staff member'}" Command="{Binding ReleaseCommand}" HorizontalAlignment="Left"/>
+      </StackPanel>
+    </StackPanel>
+    <v:FieldsPanel Grid.Row="1" Fields="{Binding Fields}"/>
+  </Grid>
+</UserControl>

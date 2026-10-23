@@ -10,7 +10,9 @@ Unofficial fan tool, not affiliated with Umix Studios. Always work on a mod or a
 - **New mod**: creates a new mod from the game's default data (same result as "duplicate default mod" in the game) and opens it.
 - **Teams**: name, founding year, city, budget and finances, fans and prestige, colours, rivals, logo, jerseys, arena (name, capacity, images), staff.
 - **Players**: name, birth date and age, height and weight, in-game look (skin, hair, beard), 26 attributes, contract, jersey number, photo.
+  A live preview shows the game's 2D avatar for the current appearance values and team colours (built from the game's own layer images, so it needs the game installed). Hairstyles are offered per gender, and a note explains when the game itself reuses a picture or model.
   Move a player to another team or release them as a free agent.
+- **Staff**: coaches, scouts, physios and others per team: name, birth date, nationality, look with live avatar preview (jacket and tie), skills, contract (role, salary, term), photo; move to another team or release.
 - **Free agents**: search, edit and sign for a team.
 - **Leagues and cups**: names and settings, rules, team assignment, phases, forced and qualified teams, brackets, match days, prize money, quotas, promotion and relegation, objectives, divisions.
 - **Jerseys**: preview of the game's default kit (front and back) from the team colours, one-click generation, combine a front and a back photo into one image, or remove the file to fall back to the default.
@@ -22,6 +24,7 @@ Unofficial fan tool, not affiliated with Umix Studios. Always work on a mod or a
 - Changes are collected in one database transaction: **Save** commits, **Discard** rolls back, **Show changes** lists the pending statements.
 - A backup is written to `Documents\PbmEditor\Backups` before the first change.
 - An integrity check runs after every save.
+- Long operations (open, save, discard, new mod, language switch) show a busy overlay with the current step, so you can see when they are done.
 - The editor warns if the game is running. Close the game before editing.
 - Mod changes only apply to **new** careers; a save game keeps its own copy of the data.
 - Serialized blobs and very long values are shown read-only and never written back.
