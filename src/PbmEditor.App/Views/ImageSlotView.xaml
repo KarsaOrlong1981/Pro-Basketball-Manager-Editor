@@ -1,0 +1,24 @@
+<UserControl x:Class="PbmEditor.App.Views.ImageSlotView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PbmEditor.App">
+  <StackPanel Margin="4" Width="170">
+    <TextBlock Text="{Binding Label}" FontWeight="SemiBold"/>
+    <Border BorderBrush="LightGray" BorderThickness="1" Background="#EEE" Height="{Binding PreviewHeight}" Margin="0,2">
+      <Image Source="{Binding Image}" Stretch="Uniform"/>
+    </Border>
+    <TextBlock Text="{Binding Info}" Foreground="Gray" FontSize="10" TextWrapping="Wrap"/>
+    <Button Content="{loc:T 'Choose image...'}" Command="{Binding Browse}" Margin="0,2"/>
+    <StackPanel>
+      <StackPanel.Style>
+        <Style TargetType="StackPanel">
+          <Setter Property="Visibility" Value="Collapsed"/>
+          <Style.Triggers><DataTrigger Binding="{Binding IsJersey}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers>
+        </Style>
+      </StackPanel.Style>
+      <Button Content="{loc:T 'Generate from colours'}" Command="{Binding GenerateCommand}" Margin="0,2" ToolTip="{loc:T 'Game default kit (front + back) tinted with the team colours'}"/>
+      <Button Content="{loc:T 'Combine front + back...'}" Command="{Binding CombineCommand}" Margin="0,2" ToolTip="{loc:T 'Pick two photos (front, back). Saved side by side as one image'}"/>
+      <Button Content="{loc:T 'Remove (use game default)'}" Command="{Binding RemoveCommand}" Margin="0,2"/>
+    </StackPanel>
+  </StackPanel>
+</UserControl>

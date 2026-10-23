@@ -1,0 +1,15 @@
+<UserControl x:Class="PbmEditor.App.Views.GridPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PbmEditor.App">
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+      <Button Content="{loc:T 'Add row'}" Click="Add_Click"/>
+      <Button Content="{loc:T 'Delete selected rows'}" Click="Delete_Click"/>
+      <TextBlock x:Name="Info" Margin="8,0" Foreground="Gray"/>
+    </StackPanel>
+    <DataGrid x:Name="Grid" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="False"
+              SelectionMode="Extended" EnableRowVirtualization="True" EnableColumnVirtualization="True"
+              AlternatingRowBackground="#F5F5F5" GridLinesVisibility="Horizontal"/>
+  </DockPanel>
+</UserControl>

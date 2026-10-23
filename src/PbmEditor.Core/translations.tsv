@@ -1,0 +1,320 @@
+# English<TAB>German<TAB>French. Placeholders {0}.. must match. \n = newline, \\ = backslash.
+Team ID	Team-ID	ID de l'équipe
+Identity	Identität	Identité
+Name	Name	Nom
+Short name	Kurzname	Nom court
+Abbreviation (name)	Kürzel (Name)	Abréviation (nom)
+Abbreviation (logo)	Kürzel (Logo)	Abréviation (logo)
+Fake name	Alias-Name	Nom fictif
+Founded (year)	Gegründet (Jahr)	Fondé (année)
+President	Präsident	Président
+League	Liga	Ligue
+Country	Land	Pays
+City	Stadt	Ville
+Budget	Budget	Budget
+Finance	Finanzen	Finances
+Real budget	Echtes Budget	Budget réel
+Payroll	Gehaltssumme	Masse salariale
+Staff payroll	Gehaltssumme Staff	Masse salariale du staff
+Owns arena	Besitzt Halle	Propriétaire de la salle
+Yearly arena rent	Jährliche Hallenmiete	Loyer annuel de la salle
+Budget coefficient vs league	Budgetfaktor zur Liga	Coefficient budgétaire vs ligue
+Supporters	Fans	Supporters
+Fans & prestige	Fans & Ansehen	Supporters & prestige
+Reputation (national)	Ansehen (national)	Réputation (nationale)
+Reputation (world)	Ansehen (weltweit)	Réputation (mondiale)
+Fan loyalty	Fan-Treue	Fidélité des fans
+Fan passion	Fan-Leidenschaft	Passion des fans
+Fan patience	Fan-Geduld	Patience des fans
+Club patience	Vereinsgeduld	Patience du club
+Arena capacity	Hallenkapazität	Capacité de la salle
+Arena	Halle	Salle
+Arena ID	Hallen-ID	ID de la salle
+Home colour	Heimfarbe	Couleur domicile
+Colours	Farben	Couleurs
+Away colour	Auswärtsfarbe	Couleur extérieur
+Third colour	Dritte Farbe	Troisième couleur
+Rival 1	Rivale 1	Rival 1
+Rivals	Rivalen	Rivaux
+Rival 2	Rivale 2	Rival 2
+Associated team	Zugeordnetes Team	Équipe associée
+Active	Aktiv	Actif
+Other	Sonstige	Autres
+Facility ID	Anlagen-ID	ID de l'installation
+Arena name	Hallenname	Nom de la salle
+Capacity	Kapazität	Capacité
+Arena type	Hallentyp	Type de salle
+Player ID	Spieler-ID	ID du joueur
+First name	Vorname	Prénom
+Last name	Nachname	Nom de famille
+Middle name	Zweiter Vorname	Deuxième prénom
+Suffix	Namenszusatz	Suffixe
+Nickname	Spitzname	Surnom
+Team	Team	Équipe
+Jersey number (255 = none)	Trikotnummer (255 = keine)	Numéro de maillot (255 = aucun)
+Nationality	Nationalität	Nationalité
+2nd nationality	Zweite Nationalität	2e nationalité
+Birth day	Geburtstag (Tag)	Jour de naissance
+Body & age	Körper & Alter	Physique & âge
+Birth month	Geburtsmonat	Mois de naissance
+Birth year	Geburtsjahr	Année de naissance
+Height (cm)	Größe (cm)	Taille (cm)
+Weight (kg)	Gewicht (kg)	Poids (kg)
+Right hand	Rechte Hand	Main droite
+Left hand	Linke Hand	Main gauche
+Skin colour (0-60)	Hautfarbe (0-60)	Couleur de peau (0-60)
+In-game look	Aussehen im Spiel	Apparence en jeu
+Hairstyle	Frisur	Coiffure
+Hair colour (0-4)	Haarfarbe (0-4)	Couleur des cheveux (0-4)
+Beard (0 = none)	Bart (0 = keiner)	Barbe (0 = aucune)
+Overall rating	Gesamtwertung	Note globale
+Rating	Wertung	Évaluation
+Market value	Marktwert	Valeur marchande
+Aptitude: PG	Eignung: Aufbau	Aptitude : meneur
+Positions	Positionen	Postes
+Aptitude: SG	Eignung: Shooting Guard	Aptitude : arrière
+Aptitude: Wing	Eignung: Flügel	Aptitude : ailier
+Aptitude: PF	Eignung: Power Forward	Aptitude : ailier fort
+Aptitude: C	Eignung: Center	Aptitude : pivot
+Overall (attributes table)	Gesamtwertung (Attribut-Tabelle)	Note globale (table des attributs)
+Potential	Potenzial	Potentiel
+Motivation	Motivation	Motivation
+Injury frequency	Verletzungshäufigkeit	Fréquence des blessures
+Contract ID	Vertrags-ID	ID du contrat
+Contract	Vertrag	Contrat
+Monthly salary	Monatsgehalt	Salaire mensuel
+Bonus	Prämie	Prime
+League title bonus	Prämie Meistertitel	Prime titre de champion
+Cup win bonus	Prämie Pokalsieg	Prime victoire en coupe
+Start day	Starttag	Jour de début
+Term	Laufzeit	Durée du contrat
+Start month	Startmonat	Mois de début
+Start year	Startjahr	Année de début
+End day	Endtag	Jour de fin
+End month	Endmonat	Mois de fin
+End year	Endjahr	Année de fin
+Duration	Dauer	Durée
+Annual raise	Jährliche Erhöhung	Augmentation annuelle
+Release clause	Ausstiegsklausel	Clause libératoire
+Clauses	Klauseln	Clauses
+Release on relegation	Freigabe bei Abstieg	Libération en cas de relégation
+Release if no Europe	Freigabe ohne Europa-Teilnahme	Libération sans qualification européenne
+Role / status	Rolle / Status	Rôle / statut
+Competition ID	Wettbewerbs-ID	ID de la compétition
+Original name	Originalname	Nom d'origine
+Organisation	Organisation	Organisation
+Abbreviation	Kürzel	Abréviation
+Logo abbreviation	Logo-Kürzel	Abréviation du logo
+Settings	Einstellungen	Paramètres
+Continent ID	Kontinent-ID	ID du continent
+Division	Division	Division
+Reputation	Ansehen	Réputation
+Type	Typ	Type
+Competition type	Wettbewerbstyp	Type de compétition
+Gender	Geschlecht	Sexe
+Playable	Spielbar	Jouable
+Minimum budget	Mindestbudget	Budget minimum
+Minimum payroll	Mindestgehaltssumme	Masse salariale minimale
+Associated competition	Zugeordneter Wettbewerb	Compétition associée
+Match	Spiel	Match
+Quarters	Viertel	Quarts-temps
+Quarter length (min)	Viertellänge (Min.)	Durée d'un quart-temps (min)
+Overtime (min)	Verlängerung (Min.)	Prolongation (min)
+Shot clock (s)	Wurfuhr (Sek.)	Horloge des tirs (s)
+Three-point line (m)	Dreierlinie (m)	Ligne à trois points (m)
+Max fouls	Maximale Fouls	Fautes maximum
+Points per win	Punkte pro Sieg	Points par victoire
+Standings	Tabelle	Classement
+Points per loss	Punkte pro Niederlage	Points par défaite
+Ranking type	Wertungsart	Type de classement
+Roster size	Kadergröße	Taille de l'effectif
+Roster	Kader	Effectif
+Max US players	Max. US-Spieler	Joueurs américains max.
+Max foreigners	Max. Ausländer	Étrangers max.
+Salary cap type	Gehaltsobergrenze (Typ)	Type de plafond salarial
+Transfers allowed	Transfers erlaubt	Transferts autorisés
+Loans allowed	Leihen erlaubt	Prêts autorisés
+Trades allowed	Trades erlaubt	Échanges autorisés
+3-point shot	Dreipunktwurf	Tir à 3 points
+Shooting	Wurf	Tir
+Mid-range shot	Mitteldistanzwurf	Tir à mi-distance
+Free throw	Freiwurf	Lancer franc
+Shot creation	Wurfkreation	Création de tir
+Inside shot	Wurf aus der Nähe	Tir intérieur
+Dribbling	Dribbling	Dribble
+Ball skills	Ballbehandlung	Maniement du ballon
+Passing	Passspiel	Passe
+Drive	Zug zum Korb	Pénétration
+Perimeter defense	Außenverteidigung	Défense extérieure
+Defense	Verteidigung	Défense
+Interior defense	Innenverteidigung	Défense intérieure
+Steals	Ballgewinne	Interceptions
+Offensive rebound	Offensiv-Rebound	Rebond offensif
+Defensive rebound	Defensiv-Rebound	Rebond défensif
+Blocks	Blocks	Contres
+Speed	Schnelligkeit	Vitesse
+Athletics	Athletik	Athlétisme
+Stamina	Ausdauer	Endurance
+Vertical leap	Sprungkraft	Détente verticale
+Strength	Kraft	Puissance
+Acceleration	Antritt	Accélération
+Explosiveness	Explosivität	Explosivité
+Team play	Mannschaftsspiel	Jeu collectif
+Mental	Mental	Mental
+Composure	Nervenstärke	Sang-froid
+Positioning	Stellungsspiel	Placement
+Influence	Einfluss	Influence
+Consistency	Konstanz	Régularité
+Experience	Erfahrung	Expérience
+Unexpected error:	Unerwarteter Fehler:	Erreur inattendue :
+This database has no image folder.	Diese Datenbank hat keinen Bilderordner.	Cette base de données n'a pas de dossier d'images.
+no image folder	kein Bilderordner	pas de dossier d'images
+{0} missing: the game draws its default kit (front + back) from the team colours	{0} fehlt: das Spiel zeichnet sein Standard-Trikot (vorne + hinten) aus den Teamfarben	{0} manquant : le jeu dessine son maillot par défaut (face + dos) à partir des couleurs de l'équipe
+{0} (missing)	{0} (fehlt)	{0} (manquant)
+{0}: cannot read image ({1})	{0}: Bild nicht lesbar ({1})	{0} : image illisible ({1})
+Game kit templates not found (PBM2025_Data\\images\\decor\\jerseys).	Trikotvorlagen des Spiels nicht gefunden (PBM2025_Data\\images\\decor\\jerseys).	Modèles de maillots du jeu introuvables (PBM2025_Data\\images\\decor\\jerseys).
+ (unsaved)	 (nicht gespeichert)	 (non enregistré)
+Select exactly two images: FRONT and BACK	Genau zwei Bilder wählen: VORNE und HINTEN	Sélectionnez exactement deux images : FACE et DOS
+Images	Bilder	Images
+Select exactly two images: front and back.	Bitte genau zwei Bilder wählen: vorne und hinten.	Sélectionnez exactement deux images : face et dos.
+Image could not be loaded: {0}	Bild konnte nicht geladen werden: {0}	L'image n'a pas pu être chargée : {0}
+Delete {0} on Save? The game then uses its default for this slot.	{0} beim Speichern löschen? Das Spiel verwendet dann seinen Standard.	Supprimer {0} à l'enregistrement ? Le jeu utilisera alors sa valeur par défaut.
+ (will be deleted)	 (wird gelöscht)	 (sera supprimé)
+All files	Alle Dateien	Tous les fichiers
+Choose a mod or save game.	Wähle eine Mod oder einen Spielstand.	Choisissez un mod ou une sauvegarde.
+Mod '{0}' created from the default data. Choose it under 'Local mods' when starting a new career.	Mod '{0}' aus den Standarddaten erstellt. Wähle sie beim Start einer neuen Karriere unter 'Lokale Mods'.	Mod '{0}' créé à partir des données par défaut. Choisissez-le sous « Mods locaux » au début d'une nouvelle carrière.
+The mod could not be created: {0}	Die Mod konnte nicht erstellt werden: {0}	Le mod n'a pas pu être créé : {0}
+Open PBM database	PBM-Datenbank öffnen	Ouvrir une base de données PBM
+PBM database	PBM-Datenbank	Base de données PBM
+There are invalid, unsaved edits. Discard them?	Es gibt ungültige, nicht gespeicherte Änderungen. Verwerfen?	Il y a des modifications invalides non enregistrées. Les abandonner ?
+There are unsaved changes. Discard them?	Es gibt nicht gespeicherte Änderungen. Verwerfen?	Il y a des modifications non enregistrées. Les abandonner ?
+Pro Basketball Manager is running. Editing a mod or save while the game runs can lose changes or corrupt the file.\n\nOpen anyway?	Pro Basketball Manager läuft. Wird eine Mod oder ein Spielstand bei laufendem Spiel bearbeitet, können Änderungen verloren gehen oder die Datei beschädigt werden.\n\nTrotzdem öffnen?	Pro Basketball Manager est en cours d'exécution. Modifier un mod ou une sauvegarde pendant que le jeu tourne peut perdre des modifications ou corrompre le fichier.\n\nOuvrir quand même ?
+This is a Steam workshop mod. Steam overwrites it on updates. Copy it to your local Mods folder for permanent edits.\n\nOpen anyway?	Dies ist eine Steam-Workshop-Mod. Steam überschreibt sie bei Updates. Kopiere sie für dauerhafte Änderungen in deinen lokalen Mods-Ordner.\n\nTrotzdem öffnen?	Ceci est un mod de l'atelier Steam. Steam l'écrase lors des mises à jour. Copiez-le dans votre dossier Mods local pour des modifications durables.\n\nOuvrir quand même ?
+Cannot open database:	Datenbank kann nicht geöffnet werden:	Impossible d'ouvrir la base de données :
+{0}  |  {1}  |  images: {2}	{0}  |  {1}  |  Bilder: {2}	{0}  |  {1}  |  images : {2}
+none (no image folder found)	keiner (kein Bilderordner gefunden)	aucun (dossier d'images introuvable)
+Saved ({0} statements). Integrity check: {1}. Changes in a mod only apply to NEW careers.	Gespeichert ({0} Anweisungen). Integritätsprüfung: {1}. Änderungen an einer Mod wirken nur in NEUEN Karrieren.	Enregistré ({0} instructions). Contrôle d'intégrité : {1}. Les modifications d'un mod ne s'appliquent qu'aux NOUVELLES carrières.
+Save failed - nothing was committed:	Speichern fehlgeschlagen - nichts wurde übernommen:	Échec de l'enregistrement - rien n'a été validé :
+Discard all unsaved changes?	Alle nicht gespeicherten Änderungen verwerfen?	Abandonner toutes les modifications non enregistrées ?
+Changes discarded.	Änderungen verworfen.	Modifications abandonnées.
+No pending changes.	Keine ausstehenden Änderungen.	Aucune modification en attente.
+Backup: {0}	Sicherung: {0}	Sauvegarde : {0}
+Pending changes	Ausstehende Änderungen	Modifications en attente
+Unsaved: {0} statements	Nicht gespeichert: {0} Anweisungen	Non enregistré : {0} instructions
+ + images	 + Bilder	 + images
+New mod from default data	Neue Mod aus Standarddaten	Nouveau mod à partir des données par défaut
+Browse...	Durchsuchen...	Parcourir...
+Select the game folder (Pro Basketball Manager 2025)	Spielordner wählen (Pro Basketball Manager 2025)	Sélectionnez le dossier du jeu (Pro Basketball Manager 2025)
+Create	Erstellen	Créer
+Cancel	Abbrechen	Annuler
+Mod name:	Name der Mod:	Nom du mod :
+Game folder (source of the default data):	Spielordner (Quelle der Standarddaten):	Dossier du jeu (source des données par défaut) :
+The mod is created in {0}. About 600 MB are copied, this takes a moment.	Die Mod wird in {0} erstellt. Es werden etwa 600 MB kopiert, das dauert einen Moment.	Le mod est créé dans {0}. Environ 600 Mo sont copiés, cela prend un moment.
+Default game data not found. Select the game folder.	Standarddaten des Spiels nicht gefunden. Bitte den Spielordner wählen.	Données par défaut du jeu introuvables. Sélectionnez le dossier du jeu.
+{0} {1}  -  age {2}, overall {3}	{0} {1}  -  Alter {2}, Gesamtwertung {3}	{0} {1}  -  âge {2}, note globale {3}
+  (no active contract)	  (kein aktiver Vertrag)	  (aucun contrat actif)
+Release this player as free agent? The active contract is deleted.	Diesen Spieler als Free Agent entlassen? Der aktive Vertrag wird gelöscht.	Libérer ce joueur comme agent libre ? Le contrat actif est supprimé.
+(all leagues)	(alle Ligen)	(toutes les ligues)
+Payroll per month: players {0:N0} + staff {1:N0} = {2:N0}.   Estimated season cost (13 x monthly, unverified): {3:N0}.   Budget {4:N0}  ->  estimated end of season {5:N0}	Gehälter pro Monat: Spieler {0:N0} + Staff {1:N0} = {2:N0}.   Geschätzte Saisonkosten (13 x monatlich, ungeprüft): {3:N0}.   Budget {4:N0}  ->  geschätzt am Saisonende {5:N0}	Salaires par mois : joueurs {0:N0} + staff {1:N0} = {2:N0}.   Coût estimé de la saison (13 x mensuel, non vérifié) : {3:N0}.   Budget {4:N0}  ->  estimé en fin de saison {5:N0}
+  (NEGATIVE)	  (NEGATIV)	  (NÉGATIF)
+{0} free agents (best 20,000 by rating)	{0} Free Agents (die besten 20.000 nach Wertung)	{0} agents libres (les 20 000 meilleurs par note)
+{0} free agents	{0} Free Agents	{0} agents libres
+Read-only: table has no primary key.	Schreibgeschützt: Tabelle hat keinen Primärschlüssel.	Lecture seule : la table n'a pas de clé primaire.
+Showing the first {0} rows - use a filter.	Es werden die ersten {0} Zeilen angezeigt - bitte filtern.	Affichage des {0} premières lignes - utilisez un filtre.
+{0} rows	{0} Zeilen	{0} lignes
+Query failed: {0}	Abfrage fehlgeschlagen: {0}	Échec de la requête : {0}
+'{0}' ({1}): '{2}' is not a whole number.	'{0}' ({1}): '{2}' ist keine ganze Zahl.	'{0}' ({1}) : '{2}' n'est pas un nombre entier.
+'{0}' ({1}): '{2}' is not a number.	'{0}' ({1}): '{2}' ist keine Zahl.	'{0}' ({1}) : '{2}' n'est pas un nombre.
+no league	keine Liga	aucune ligue
+(none)	(keine)	(aucun)
+(free agent)	(Free Agent)	(agent libre)
+Jersey number {0} is already taken in the target team.	Die Trikotnummer {0} ist im Zielteam bereits vergeben.	Le numéro de maillot {0} est déjà pris dans l'équipe cible.
+No contract template found to clone.	Keine Vertragsvorlage zum Kopieren gefunden.	Aucun modèle de contrat à copier trouvé.
+Please enter a mod name.	Bitte einen Namen für die Mod eingeben.	Veuillez saisir un nom de mod.
+The name contains characters that are not allowed in folder names.	Der Name enthält Zeichen, die in Ordnernamen nicht erlaubt sind.	Le nom contient des caractères non autorisés dans les noms de dossier.
+A mod with this name already exists.	Eine Mod mit diesem Namen existiert bereits.	Un mod portant ce nom existe déjà.
+Default game data not found in {0}.	Standarddaten des Spiels in {0} nicht gefunden.	Données par défaut du jeu introuvables dans {0}.
+Copying database...	Datenbank wird kopiert...	Copie de la base de données...
+Copying statistics (large file)...	Statistiken werden kopiert (große Datei)...	Copie des statistiques (gros fichier)...
+Copying images...	Bilder werden kopiert...	Copie des images...
+Database not found	Datenbank nicht gefunden	Base de données introuvable
+Not a PBM database (table DYN_equipe missing).	Keine PBM-Datenbank (Tabelle DYN_equipe fehlt).	Ce n'est pas une base PBM (table DYN_equipe manquante).
+created with {0}	erstellt mit {0}	créé avec {0}
+start year {0}	Startjahr {0}	année de début {0}
+version info unavailable: {0}	Versionsinfo nicht verfügbar: {0}	informations de version indisponibles : {0}
+{0} tables	{0} Tabellen	{0} tables
+Table {0} not found.	Tabelle {0} nicht gefunden.	Table {0} introuvable.
+Photo (140x160)	Foto (140x160)	Photo (140x160)
+Logo	Logo	Logo
+Jersey home (front + back)	Trikot Heim (vorne + hinten)	Maillot domicile (face + dos)
+Jersey away (front + back)	Trikot Auswärts (vorne + hinten)	Maillot extérieur (face + dos)
+Arena inside	Halle innen	Salle (intérieur)
+Arena outside	Halle außen	Salle (extérieur)
+Logo (small)	Logo (klein)	Logo (petit)
+Search:	Suche:	Recherche :
+Sign for team:	Verpflichten für Team:	Engager pour l'équipe :
+Sign selected player	Gewählten Spieler verpflichten	Engager le joueur sélectionné
+Ovr	Ges.	Gén.
+ID	ID	ID
+Add row	Zeile hinzufügen	Ajouter une ligne
+Delete selected rows	Gewählte Zeilen löschen	Supprimer les lignes sélectionnées
+Choose image...	Bild wählen...	Choisir une image...
+Generate from colours	Aus Farben erzeugen	Générer à partir des couleurs
+Game default kit (front + back) tinted with the team colours	Standard-Trikot des Spiels (vorne + hinten) in den Teamfarben	Maillot par défaut du jeu (face + dos) aux couleurs de l'équipe
+Combine front + back...	Vorne + hinten kombinieren...	Combiner face + dos...
+Pick two photos (front, back). Saved side by side as one image	Zwei Fotos wählen (vorne, hinten). Sie werden nebeneinander als ein Bild gespeichert	Choisissez deux photos (face, dos). Enregistrées côte à côte en une seule image
+Remove (use game default)	Entfernen (Spiel-Standard nutzen)	Supprimer (utiliser la valeur par défaut)
+Search by name or ID	Suche nach Name oder ID	Recherche par nom ou ID
+Type:	Typ:	Type :
+type_competition value (-1 = all)	Wert von type_competition (-1 = alle)	valeur de type_competition (-1 = tous)
+Details	Details	Détails
+Rules	Regeln	Règles
+Teams	Teams	Équipes
+Add team to this league:	Team zu dieser Liga hinzufügen:	Ajouter une équipe à cette ligue :
+Add	Hinzufügen	Ajouter
+Move selected team to:	Gewähltes Team verschieben nach:	Déplacer l'équipe sélectionnée vers :
+Move	Verschieben	Déplacer
+Phases	Phasen	Phases
+Phases (STA_competition_phase)	Phasen (STA_competition_phase)	Phases (STA_competition_phase)
+Selected phase for the tables below:	Gewählte Phase für die Tabellen darunter:	Phase sélectionnée pour les tables ci-dessous :
+Forced teams	Gesetzte Teams	Équipes imposées
+Qualified teams	Qualifizierte Teams	Équipes qualifiées
+Brackets	Turnierbäume	Tableaux
+Match days	Spieltage	Journées
+Prize money	Preisgeld	Dotations
+Quotas	Quoten	Quotas
+Promotion / relegation	Auf- / Abstieg	Promotion / relégation
+Objectives	Ziele	Objectifs
+Divisions	Divisionen	Divisions
+Adjust overall rating when attributes change (0.036 per point)	Gesamtwertung bei Änderung der Fähigkeiten anpassen (0,036 pro Punkt)	Ajuster la note globale quand les attributs changent (0,036 par point)
+Move to team	In Team verschieben	Transférer vers l'équipe
+Make free agent	Zum Free Agent machen	Libérer (agent libre)
+Add contract	Vertrag hinzufügen	Ajouter un contrat
+Table:	Tabelle:	Table :
+WHERE:	WHERE:	WHERE :
+Optional SQL condition, e.g. id_equipe = 85	Optionale SQL-Bedingung, z. B. id_equipe = 85	Condition SQL facultative, p. ex. id_equipe = 85
+Load	Laden	Charger
+League filter:	Ligafilter:	Filtre de ligue :
+Team:	Team:	Équipe :
+Create arena for this team	Halle für dieses Team anlegen	Créer une salle pour cette équipe
+Players	Spieler	Joueurs
+Salary/mo	Gehalt/Mon.	Salaire/mois
+Staff	Staff	Staff
+Staff contracts (DYN_contrat_person)	Staff-Verträge (DYN_contrat_person)	Contrats du staff (DYN_contrat_person)
+Staff persons (DYN_person)	Staff-Personen (DYN_person)	Personnes du staff (DYN_person)
+Mod / save:	Mod / Spielstand:	Mod / sauvegarde :
+Open file...	Datei öffnen...	Ouvrir un fichier...
+Rescan	Neu suchen	Réanalyser
+Show changes	Änderungen anzeigen	Afficher les modifications
+Discard	Verwerfen	Abandonner
+Save	Speichern	Enregistrer
+Teams and players	Teams und Spieler	Équipes et joueurs
+Free agents	Free Agents	Agents libres
+Leagues and cups	Ligen und Pokale	Ligues et coupes
+Raw tables	Rohtabellen	Tables brutes
+Local mod	Lokale Mod	Mod local
+Workshop (Steam overwrites it)	Workshop (Steam überschreibt sie)	Atelier (Steam l'écrase)
+File	Datei	Fichier
+New mod...	Neue Mod...	Nouveau mod...
+Create a new mod from the default game data	Neue Mod aus den Standarddaten des Spiels erstellen	Créer un nouveau mod à partir des données par défaut du jeu
+Language:	Sprache:	Langue :

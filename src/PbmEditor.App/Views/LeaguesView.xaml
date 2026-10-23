@@ -1,0 +1,71 @@
+<UserControl x:Class="PbmEditor.App.Views.LeaguesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PbmEditor.App"
+             xmlns:v="clr-namespace:PbmEditor.App.Views">
+  <Grid>
+    <Grid.ColumnDefinitions><ColumnDefinition Width="300"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+    <DockPanel>
+      <StackPanel DockPanel.Dock="Top">
+        <TextBox Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" ToolTip="{loc:T 'Search by name or ID'}"/>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Text="{loc:T 'Type:'}" Margin="6,0"/>
+          <ComboBox ItemsSource="{Binding Types}" SelectedItem="{Binding TypeFilter}" MinWidth="80"
+                    ToolTip="{loc:T 'type_competition value (-1 = all)'}"/>
+        </StackPanel>
+      </StackPanel>
+      <ListBox ItemsSource="{Binding Competitions}" SelectedItem="{Binding Selected}" DisplayMemberPath="Name"/>
+    </DockPanel>
+    <TabControl Grid.Column="1">
+      <TabItem Header="{loc:T 'Details'}">
+        <Grid>
+          <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="340"/></Grid.ColumnDefinitions>
+          <v:FieldsPanel Fields="{Binding DetailFields}"/>
+          <WrapPanel Grid.Column="1">
+            <v:ImageSlotView DataContext="{Binding Logo}"/>
+            <v:ImageSlotView DataContext="{Binding LogoSmall}"/>
+          </WrapPanel>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{loc:T 'Rules'}"><v:FieldsPanel Fields="{Binding RuleFields}"/></TabItem>
+      <TabItem Header="{loc:T 'Teams'}">
+        <DockPanel>
+          <StackPanel DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{loc:T 'Add team to this league:'}" Margin="6,0"/>
+              <ComboBox Width="360" ItemsSource="{Binding AllTeams}" SelectedItem="{Binding AddTeam}" TextSearch.TextPath="Name"/>
+              <Button Content="{loc:T 'Add'}" Command="{Binding AddTeamCommand}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="{loc:T 'Move selected team to:'}" Margin="6,0"/>
+              <ComboBox Width="360" ItemsSource="{Binding AllLeagues}" SelectedItem="{Binding MoveTo}" TextSearch.TextPath="Name"/>
+              <Button Content="{loc:T 'Move'}" Command="{Binding MoveTeamCommand}"/>
+            </StackPanel>
+          </StackPanel>
+          <ListBox ItemsSource="{Binding LeagueTeams}" SelectedItem="{Binding SelectedTeam}" DisplayMemberPath="Name"/>
+        </DockPanel>
+      </TabItem>
+      <TabItem Header="{loc:T 'Phases'}">
+        <Grid>
+          <Grid.RowDefinitions><RowDefinition Height="2*"/><RowDefinition Height="Auto"/><RowDefinition Height="3*"/></Grid.RowDefinitions>
+          <GroupBox Header="{loc:T 'Phases (STA_competition_phase)'}"><v:GridPanel DataContext="{Binding PhaseGrid}"/></GroupBox>
+          <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="{loc:T 'Selected phase for the tables below:'}" Margin="6,0"/>
+            <ComboBox Width="360" ItemsSource="{Binding Phases}" SelectedItem="{Binding Phase}"/>
+          </StackPanel>
+          <TabControl Grid.Row="2">
+            <TabItem Header="{loc:T 'Forced teams'}"><v:GridPanel DataContext="{Binding ForcedGrid}"/></TabItem>
+            <TabItem Header="{loc:T 'Qualified teams'}"><v:GridPanel DataContext="{Binding QualifiedGrid}"/></TabItem>
+            <TabItem Header="{loc:T 'Brackets'}"><v:GridPanel DataContext="{Binding BracketGrid}"/></TabItem>
+            <TabItem Header="{loc:T 'Match days'}"><v:GridPanel DataContext="{Binding MatchDayGrid}"/></TabItem>
+          </TabControl>
+        </Grid>
+      </TabItem>
+      <TabItem Header="{loc:T 'Prize money'}"><v:GridPanel DataContext="{Binding PrizeGrid}"/></TabItem>
+      <TabItem Header="{loc:T 'Quotas'}"><v:GridPanel DataContext="{Binding QuotaGrid}"/></TabItem>
+      <TabItem Header="{loc:T 'Promotion / relegation'}"><v:GridPanel DataContext="{Binding RelegationGrid}"/></TabItem>
+      <TabItem Header="{loc:T 'Objectives'}"><v:GridPanel DataContext="{Binding ObjectiveGrid}"/></TabItem>
+      <TabItem Header="{loc:T 'Divisions'}"><v:GridPanel DataContext="{Binding DivisionGrid}"/></TabItem>
+    </TabControl>
+  </Grid>
+</UserControl>

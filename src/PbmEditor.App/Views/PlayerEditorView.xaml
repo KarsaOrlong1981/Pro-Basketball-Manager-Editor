@@ -1,0 +1,25 @@
+<UserControl x:Class="PbmEditor.App.Views.PlayerEditorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PbmEditor.App"
+             xmlns:v="clr-namespace:PbmEditor.App.Views">
+  <Grid>
+    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal">
+      <v:ImageSlotView DataContext="{Binding Photo}"/>
+      <StackPanel Margin="8,4" VerticalAlignment="Top" MinWidth="320">
+        <TextBlock Text="{Binding Header}" FontSize="15" FontWeight="SemiBold" TextWrapping="Wrap"/>
+        <CheckBox Content="{loc:T 'Adjust overall rating when attributes change (0.036 per point)'}" IsChecked="{Binding AutoAdjustOverall}" Margin="3,6"/>
+        <StackPanel Orientation="Horizontal">
+          <ComboBox ItemsSource="{Binding MoveTargets}" SelectedItem="{Binding MoveTarget}" MinWidth="230" TextSearch.TextPath="Name"/>
+          <Button Content="{loc:T 'Move to team'}" Command="{Binding MoveCommand}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+          <Button Content="{loc:T 'Make free agent'}" Command="{Binding FreeAgentCommand}"/>
+          <Button Content="{loc:T 'Add contract'}" Command="{Binding AddContractCommand}"/>
+        </StackPanel>
+      </StackPanel>
+    </StackPanel>
+    <v:FieldsPanel Grid.Row="1" Fields="{Binding Fields}"/>
+  </Grid>
+</UserControl>

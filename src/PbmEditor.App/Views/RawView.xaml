@@ -1,0 +1,17 @@
+<UserControl x:Class="PbmEditor.App.Views.RawView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PbmEditor.App"
+             xmlns:v="clr-namespace:PbmEditor.App.Views">
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+      <TextBlock Text="{loc:T 'Table:'}" Margin="6,0"/>
+      <ComboBox Width="260" ItemsSource="{Binding Tables}" SelectedItem="{Binding Table}"/>
+      <TextBlock Text="{loc:T 'WHERE:'}" Margin="12,0,6,0"/>
+      <TextBox Width="340" Text="{Binding Where}" ToolTip="{loc:T 'Optional SQL condition, e.g. id_equipe = 85'}"/>
+      <Button Content="{loc:T 'Load'}" Command="{Binding LoadCommand}"/>
+      <TextBlock Text="{Binding Status}" Foreground="Gray" Margin="8,0"/>
+    </StackPanel>
+    <v:GridPanel DataContext="{Binding Grid}"/>
+  </DockPanel>
+</UserControl>

@@ -1,0 +1,28 @@
+<UserControl x:Class="PbmEditor.App.Views.FreeAgentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="clr-namespace:PbmEditor.App"
+             xmlns:v="clr-namespace:PbmEditor.App.Views">
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+      <TextBlock Text="{loc:T 'Search:'}" Margin="6,0"/>
+      <TextBox Width="200" Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}"/>
+      <TextBlock Text="{loc:T 'Sign for team:'}" Margin="12,0,6,0"/>
+      <ComboBox Width="320" ItemsSource="{Binding Teams}" SelectedItem="{Binding Target}" TextSearch.TextPath="Name"/>
+      <Button Content="{loc:T 'Sign selected player'}" Command="{Binding SignCommand}"/>
+      <TextBlock Text="{Binding Count}" Foreground="Gray" Margin="10,0"/>
+    </StackPanel>
+    <Grid>
+      <Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+      <DataGrid ItemsSource="{Binding Players}" SelectedItem="{Binding Selected}" AutoGenerateColumns="False" IsReadOnly="True"
+                SelectionMode="Single" HeadersVisibility="Column">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{loc:T 'Name'}" Binding="{Binding Name}" Width="*"/>
+          <DataGridTextColumn Header="{loc:T 'Ovr'}" Binding="{Binding Rating, StringFormat=0.00}" Width="60"/>
+          <DataGridTextColumn Header="{loc:T 'ID'}" Binding="{Binding Id}" Width="90"/>
+        </DataGrid.Columns>
+      </DataGrid>
+      <v:PlayerEditorView Grid.Column="1" DataContext="{Binding Player}"/>
+    </Grid>
+  </DockPanel>
+</UserControl>
