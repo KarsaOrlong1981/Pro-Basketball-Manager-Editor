@@ -104,12 +104,17 @@ public static class GameService
         new Choice(4, Loc.T("Chin strap")), new Choice(5, Loc.T("Full beard")), new Choice(6, Loc.T("Sideburns")),
     };
 
-    /// <summary>Hairstyles for one gender (STA_coiffures.sexe). A current value outside the list stays selectable, marked as unsuitable.</summary>
+    /// <summary>Styles the game draws no hair for (3D bare head, 2D no hair); 0 and 16 are intentionally bald and stay.</summary>
+    static readonly HashSet<long> NoHairModel = new() { 1, 5, 15, 110 };
+
+    /// <summary>Hairstyles for one gender (STA_coiffures.sexe) without styles the game cannot show. A current value outside the list stays selectable, marked as unsuitable.</summary>
     public static IReadOnlyList<Choice> HairstyleChoicesFor(PbmDatabase db, bool female, long current)
     {
         var list = db.Query("SELECT DISTINCT type_coiffure, nom FROM STA_coiffures WHERE sexe=@p0 ORDER BY type_coiffure", female ? 1 : 0)
+            .Where(r => !NoHairModel.Contains(r.Int("type_coiffure")))
             .Select(r => new Choice(r.Int("type_coiffure"), $"{r.Int("type_coiffure")} - {r.Str("nom")}")).ToList();
-        if (list.All(c => c.Value != current)) list.Add(new Choice(current, Loc.F("{0} (not available for this gender)", current)));
+        if (list.All(c => c.Value != current))
+            list.Add(new Choice(current, NoHairModel.Contains(current) ? Loc.F("{0} (not shown in game)", current) : Loc.F("{0} (not available for this gender)", current)));
         return list;
     }
 
