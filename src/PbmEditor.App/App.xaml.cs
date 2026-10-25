@@ -9,7 +9,7 @@ public partial class App : Application
         Core.Loc.LoadSetting();
         DispatcherUnhandledException += (_, e) =>
         {
-            Dialogs.Error(Core.Loc.T("Unexpected error:") + "\n" + e.Exception.Message);
+            Dialogs.Error(Core.Loc.T("Unexpected error:") + "\n" + Core.ErrorText.For(e.Exception));
             e.Handled = true;
         };
     }

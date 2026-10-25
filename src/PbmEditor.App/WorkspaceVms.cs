@@ -10,8 +10,8 @@ namespace PbmEditor.App;
 static class GridHelper
 {
     /// <summary>Table may not exist in other game versions: return null instead of failing.</summary>
-    public static TableGrid? Make(PbmDatabase db, string table, string? col = null, object? val = null, string? where = null) =>
-        db.GetTable(table) == null ? null : new TableGrid(db, table, col, val, where);
+    public static TableGrid? Make(PbmDatabase db, string table, string title, string? col = null, object? val = null, string? where = null) =>
+        db.GetTable(table) == null ? null : new TableGrid(db, table, col, val, where) { Title = Loc.T(title) };
 
     public static void Apply(params TableGrid?[] grids)
     {
@@ -434,12 +434,12 @@ public sealed class LeaguesVm : ObservableObject, IWorkspacePart
                 RuleFields = _rules.Exists ? _rules.Fields : new();
             }
             RefreshTeams();
-            PhaseGrid = GridHelper.Make(_db, "STA_competition_phase", "id_competition", id);
-            PrizeGrid = GridHelper.Make(_db, "STA_competition_prize_money", "id_competition", id);
-            QuotaGrid = GridHelper.Make(_db, "STA_competition_quotas", "id_competition", id);
-            RelegationGrid = GridHelper.Make(_db, "STA_competition_relegations", "id_competition", id);
-            ObjectiveGrid = GridHelper.Make(_db, "STA_competition_objectifs", "id_competition", id);
-            DivisionGrid = GridHelper.Make(_db, "STA_Equipes_Division", "id_competition", id);
+            PhaseGrid = GridHelper.Make(_db, "STA_competition_phase", "Phases", "id_competition", id);
+            PrizeGrid = GridHelper.Make(_db, "STA_competition_prize_money", "Prize money", "id_competition", id);
+            QuotaGrid = GridHelper.Make(_db, "STA_competition_quotas", "Quotas", "id_competition", id);
+            RelegationGrid = GridHelper.Make(_db, "STA_competition_relegations", "Promotion / relegation", "id_competition", id);
+            ObjectiveGrid = GridHelper.Make(_db, "STA_competition_objectifs", "Objectives", "id_competition", id);
+            DivisionGrid = GridHelper.Make(_db, "STA_Equipes_Division", "Divisions", "id_competition", id);
             RefreshPhases();
         }
         LoadPhaseGrids();
@@ -460,10 +460,10 @@ public sealed class LeaguesVm : ObservableObject, IWorkspacePart
         ForcedGrid = QualifiedGrid = BracketGrid = MatchDayGrid = null;
         if (_phase != null)
         {
-            ForcedGrid = GridHelper.Make(_db, "STA_phase_forced_teams", "id_phase", _phase.Id);
-            QualifiedGrid = GridHelper.Make(_db, "STA_competition_phase_equipes_qualifiees", "id_phase", _phase.Id);
-            BracketGrid = GridHelper.Make(_db, "STA_competition_phase_brackets", "id_phase", _phase.Id);
-            MatchDayGrid = GridHelper.Make(_db, "STA_competition_jours_matchs", "id_phase", _phase.Id);
+            ForcedGrid = GridHelper.Make(_db, "STA_phase_forced_teams", "Forced teams", "id_phase", _phase.Id);
+            QualifiedGrid = GridHelper.Make(_db, "STA_competition_phase_equipes_qualifiees", "Qualified teams", "id_phase", _phase.Id);
+            BracketGrid = GridHelper.Make(_db, "STA_competition_phase_brackets", "Brackets", "id_phase", _phase.Id);
+            MatchDayGrid = GridHelper.Make(_db, "STA_competition_jours_matchs", "Match days", "id_phase", _phase.Id);
         }
         foreach (var p in new[] { nameof(ForcedGrid), nameof(QualifiedGrid), nameof(BracketGrid), nameof(MatchDayGrid) }) Notify(p);
     }
@@ -539,8 +539,8 @@ public sealed class RawVm : ObservableObject, IWorkspacePart
         {
             try
             {
-                Grid = new TableGrid(_db, _table, where: Where);
-                Status = Grid.ReadOnly ? Loc.T("Read-only: table has no primary key.") :
+                Grid = new TableGrid(_db, _table, where: Where) { RawNames = true };
+                Status = Grid.ReadOnly ? Loc.T("Read-only.") :
                     Grid.Truncated ? Loc.F("Showing the first {0} rows - use a filter.", TableGrid.MaxRows) : Loc.F("{0} rows", Grid.Data.Rows.Count);
             }
             catch (Microsoft.Data.Sqlite.SqliteException e) { Status = Loc.F("Query failed: {0}", e.Message); }

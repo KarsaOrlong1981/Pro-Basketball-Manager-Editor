@@ -46,7 +46,9 @@ public static class FieldConfigs
         .Add("ennemie_1", "Rival 1", "Rivals", choices: GameService.TeamChoices)
         .Add("ennemie_2", "Rival 2", "Rivals", choices: GameService.TeamChoices)
         .Add("equipe_associee", "Associated team", "Rivals", choices: GameService.TeamChoices)
-        .Add("isActive", "Active", "Other", FieldKind.Bool);
+        .Add("cohesion_offensive", "Offensive cohesion", "Team spirit")
+        .Add("cohesion_defensive", "Defensive cohesion", "Team spirit")
+        .Add("isActive", "Active", "Identity", FieldKind.Bool);
 
     public static FieldSet Arena() => new FieldSet()
         .Add("id_facility", "Facility ID", "Arena")
@@ -84,7 +86,25 @@ public static class FieldConfigs
         .Add("aptitude_arriere", "Aptitude: SG", "Positions", FieldKind.Slider, 0, 100)
         .Add("aptitude_ailier", "Aptitude: Wing", "Positions", FieldKind.Slider, 0, 100)
         .Add("aptitude_interieur", "Aptitude: PF", "Positions", FieldKind.Slider, 0, 100)
-        .Add("aptitude_pivot", "Aptitude: C", "Positions", FieldKind.Slider, 0, 100);
+        .Add("aptitude_pivot", "Aptitude: C", "Positions", FieldKind.Slider, 0, 100)
+        .Add("forme", "Form", "Condition")
+        .Add("fatigue", "Fatigue", "Condition")
+        .Add("blesse", "Injured", "Condition")
+        .Add("retraite", "Retired", "Condition")
+        .Add("risk_injury_shoulders", "Shoulders", "Injury risk")
+        .Add("risk_injury_back", "Back", "Injury risk")
+        .Add("risk_injury_hands", "Hands", "Injury risk")
+        .Add("risk_injury_hips", "Hips", "Injury risk")
+        .Add("risk_injury_knees", "Knees", "Injury risk")
+        .Add("risk_injury_ankles", "Ankles", "Injury risk")
+        .Add("mental_travail", "Work ethic", "Character")
+        .Add("mental_comprehension", "Understanding", "Character")
+        .Add("mental_confiance", "Confidence", "Character")
+        .Add("mental_sociabilite", "Sociability", "Character")
+        .Add("mental_besoin_social", "Social need", "Character")
+        .Add("mental_patience", "Patience", "Character")
+        .Add("mental_diplomatie", "Diplomacy", "Character")
+        .Add("loyaute", "Loyalty", "Character");
 
     public static FieldSet Attributes()
     {
@@ -116,7 +136,7 @@ public static class FieldConfigs
         A("attribut_influence", "Influence", "Mental");
         A("attribut_regularite", "Consistency", "Mental");
         A("attribut_experience", "Experience", "Mental");
-        s.Add("moyenne", "Overall (attributes table)", "Rating", FieldKind.Real);
+        s.Add("moyenne", "Overall (attributes)", "Rating", FieldKind.Real);
         s.Add("cache_potentiel", "Potential", "Rating", FieldKind.Real);
         s.Add("cache_motivation", "Motivation", "Rating", FieldKind.Real);
         s.Add("cache_frequence_blessure", "Injury frequency", "Rating", FieldKind.Real);

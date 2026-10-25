@@ -24,7 +24,7 @@ public sealed class RowEditor
 
     void Load(FieldSet set)
     {
-        var info = _db.GetTable(Table) ?? throw new InvalidOperationException(Loc.F("Table {0} not found.", Table));
+        var info = _db.GetTable(Table) ?? throw new InvalidOperationException(Loc.T("Data not found."));
         var row = _db.Query($"SELECT * FROM \"{Table}\" WHERE \"{_keyColumn}\"=@p0", _keyValue).FirstOrDefault();
         Exists = row != null;
         if (row == null) return;
@@ -36,6 +36,8 @@ public sealed class RowEditor
 
         foreach (var col in ordered)
         {
+            // with a field set, internal columns without a spec stay hidden; without one (generic use) all are shown
+            if (set.Items.Count > 0 && set.Find(col.Name) == null) continue;
             var spec = set.Find(col.Name);
             var raw = row[col.Name];
             var encoded = col.Kind == ColumnKind.Text && PbmCodec.IsEncodedColumn(Table, col.Name);
@@ -91,9 +93,11 @@ public sealed class RowEditor
         var dirty = Fields.Where(f => f.Dirty).ToList();
         if (dirty.Count == 0) return 0;
         var values = dirty.Select(f => f.ToDbValue()).ToList(); // validate everything before writing
+        var owner = ChangeNames.RowOwner(_db, Table, _keyColumn, _keyValue);
         var sets = string.Join(",", dirty.Select((f, i) => $"\"{f.Name}\"=@p{i}"));
         var args = values.Append(_keyValue).ToArray();
         _db.Execute($"UPDATE \"{Table}\" SET {sets} WHERE \"{_keyColumn}\"=@p{values.Count}", args);
+        foreach (var f in dirty) _db.Note($"{owner}: {f.Label}: {ChangeNames.Show(f, f.OriginalText)} -> {ChangeNames.Show(f, f.Text)}");
         foreach (var f in dirty) { f.OriginalValue = f.ToDbValue(); f.MarkClean(); }
         return dirty.Count;
     }

@@ -11,7 +11,7 @@
         <StackPanel Orientation="Horizontal">
           <TextBlock Text="{loc:T 'Type:'}" Margin="6,0"/>
           <ComboBox ItemsSource="{Binding Types}" SelectedItem="{Binding TypeFilter}" MinWidth="80"
-                    ToolTip="{loc:T 'type_competition value (-1 = all)'}"/>
+                    ToolTip="{loc:T 'Competition type (-1 = all)'}"/>
         </StackPanel>
       </StackPanel>
       <ListBox ItemsSource="{Binding Competitions}" SelectedItem="{Binding Selected}" DisplayMemberPath="Name"/>
@@ -48,7 +48,7 @@
       <TabItem Header="{loc:T 'Phases'}">
         <Grid>
           <Grid.RowDefinitions><RowDefinition Height="2*"/><RowDefinition Height="Auto"/><RowDefinition Height="3*"/></Grid.RowDefinitions>
-          <GroupBox Header="{loc:T 'Phases (STA_competition_phase)'}"><v:GridPanel DataContext="{Binding PhaseGrid}"/></GroupBox>
+          <GroupBox Header="{loc:T 'Phases'}"><v:GridPanel DataContext="{Binding PhaseGrid}"/></GroupBox>
           <StackPanel Grid.Row="1" Orientation="Horizontal">
             <TextBlock Text="{loc:T 'Selected phase for the tables below:'}" Margin="6,0"/>
             <ComboBox Width="360" ItemsSource="{Binding Phases}" SelectedItem="{Binding Phase}"/>

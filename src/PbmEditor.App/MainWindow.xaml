@@ -32,7 +32,19 @@
       <TabItem Header="{loc:T 'Teams and players'}"><v:TeamsView DataContext="{Binding Teams}"/></TabItem>
       <TabItem Header="{loc:T 'Free agents'}"><v:FreeAgentsView DataContext="{Binding FreeAgents}"/></TabItem>
       <TabItem Header="{loc:T 'Leagues and cups'}"><v:LeaguesView DataContext="{Binding Leagues}"/></TabItem>
-      <TabItem Header="{loc:T 'Raw tables'}"><v:RawView DataContext="{Binding Raw}"/></TabItem>
+      <TabItem Header="{loc:T 'Raw tables'}" Visibility="{Binding ShowRaw, Converter={StaticResource BoolToVis}}"><v:RawView DataContext="{Binding Raw}"/></TabItem>
+      <TabItem Header="{loc:T 'Cheat codes'}">
+        <StackPanel Margin="12" MaxWidth="520" HorizontalAlignment="Left">
+          <TextBlock Text="{loc:T 'Enter a cheat code to unlock hidden features.'}" Margin="0,0,0,8"/>
+          <StackPanel Orientation="Horizontal">
+            <TextBox Width="300" Text="{Binding CheatCode, UpdateSourceTrigger=PropertyChanged}">
+              <TextBox.InputBindings><KeyBinding Key="Return" Command="{Binding ApplyCheatCommand}"/></TextBox.InputBindings>
+            </TextBox>
+            <Button Content="{loc:T 'Activate'}" Command="{Binding ApplyCheatCommand}" Margin="6,0,0,0"/>
+          </StackPanel>
+          <TextBlock Text="{Binding CheatResult}" Margin="0,8,0,0" TextWrapping="Wrap" Foreground="Gray"/>
+        </StackPanel>
+      </TabItem>
     </TabControl>
   </DockPanel>
   <!-- busy overlay: blocks input and tells what is going on -->

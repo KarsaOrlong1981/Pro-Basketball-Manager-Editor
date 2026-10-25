@@ -76,7 +76,6 @@ Aptitude: SG	Eignung: Shooting Guard	Aptitude : arrière
 Aptitude: Wing	Eignung: Flügel	Aptitude : ailier
 Aptitude: PF	Eignung: Power Forward	Aptitude : ailier fort
 Aptitude: C	Eignung: Center	Aptitude : pivot
-Overall (attributes table)	Gesamtwertung (Attribut-Tabelle)	Note globale (table des attributs)
 Potential	Potenzial	Potentiel
 Motivation	Motivation	Motivation
 Injury frequency	Verletzungshäufigkeit	Fréquence des blessures
@@ -193,14 +192,14 @@ This is a Steam workshop mod. Steam overwrites it on updates. Copy it to your lo
 Cannot open database:	Datenbank kann nicht geöffnet werden:	Impossible d'ouvrir la base de données :
 {0}  |  {1}  |  images: {2}	{0}  |  {1}  |  Bilder: {2}	{0}  |  {1}  |  images : {2}
 none (no image folder found)	keiner (kein Bilderordner gefunden)	aucun (dossier d'images introuvable)
-Saved ({0} statements). Integrity check: {1}. Changes in a mod only apply to NEW careers.	Gespeichert ({0} Anweisungen). Integritätsprüfung: {1}. Änderungen an einer Mod wirken nur in NEUEN Karrieren.	Enregistré ({0} instructions). Contrôle d'intégrité : {1}. Les modifications d'un mod ne s'appliquent qu'aux NOUVELLES carrières.
+Saved ({0} changes). Integrity check: {1}. Changes in a mod only apply to NEW careers.	Gespeichert ({0} Änderungen). Integritätsprüfung: {1}. Änderungen an einer Mod wirken nur in NEUEN Karrieren.	Enregistré ({0} modifications). Contrôle d'intégrité : {1}. Les modifications d'un mod ne s'appliquent qu'aux NOUVELLES carrières.
 Save failed - nothing was committed:	Speichern fehlgeschlagen - nichts wurde übernommen:	Échec de l'enregistrement - rien n'a été validé :
 Discard all unsaved changes?	Alle nicht gespeicherten Änderungen verwerfen?	Abandonner toutes les modifications non enregistrées ?
 Changes discarded.	Änderungen verworfen.	Modifications abandonnées.
 No pending changes.	Keine ausstehenden Änderungen.	Aucune modification en attente.
 Backup: {0}	Sicherung: {0}	Sauvegarde : {0}
 Pending changes	Ausstehende Änderungen	Modifications en attente
-Unsaved: {0} statements	Nicht gespeichert: {0} Anweisungen	Non enregistré : {0} instructions
+Unsaved: {0} changes	Nicht gespeichert: {0} Änderungen	Non enregistré : {0} modifications
  + images	 + Bilder	 + images
 New mod from default data	Neue Mod aus Standarddaten	Nouveau mod à partir des données par défaut
 Browse...	Durchsuchen...	Parcourir...
@@ -219,12 +218,11 @@ Payroll per month: players {0:N0} + staff {1:N0} = {2:N0}.   Estimated season co
   (NEGATIVE)	  (NEGATIV)	  (NÉGATIF)
 {0} free agents (best 20,000 by rating)	{0} Free Agents (die besten 20.000 nach Wertung)	{0} agents libres (les 20 000 meilleurs par note)
 {0} free agents	{0} Free Agents	{0} agents libres
-Read-only: table has no primary key.	Schreibgeschützt: Tabelle hat keinen Primärschlüssel.	Lecture seule : la table n'a pas de clé primaire.
 Showing the first {0} rows - use a filter.	Es werden die ersten {0} Zeilen angezeigt - bitte filtern.	Affichage des {0} premières lignes - utilisez un filtre.
 {0} rows	{0} Zeilen	{0} lignes
 Query failed: {0}	Abfrage fehlgeschlagen: {0}	Échec de la requête : {0}
-'{0}' ({1}): '{2}' is not a whole number.	'{0}' ({1}): '{2}' ist keine ganze Zahl.	'{0}' ({1}) : '{2}' n'est pas un nombre entier.
-'{0}' ({1}): '{2}' is not a number.	'{0}' ({1}): '{2}' ist keine Zahl.	'{0}' ({1}) : '{2}' n'est pas un nombre.
+'{0}': '{1}' is not a whole number.	'{0}': '{1}' ist keine ganze Zahl.	'{0}' : '{1}' n'est pas un nombre entier.
+'{0}': '{1}' is not a number.	'{0}': '{1}' ist keine Zahl.	'{0}' : '{1}' n'est pas un nombre.
 no league	keine Liga	aucune ligue
 (none)	(keine)	(aucun)
 (free agent)	(Free Agent)	(agent libre)
@@ -238,12 +236,11 @@ Copying database...	Datenbank wird kopiert...	Copie de la base de données...
 Copying statistics (large file)...	Statistiken werden kopiert (große Datei)...	Copie des statistiques (gros fichier)...
 Copying images...	Bilder werden kopiert...	Copie des images...
 Database not found	Datenbank nicht gefunden	Base de données introuvable
-Not a PBM database (table DYN_equipe missing).	Keine PBM-Datenbank (Tabelle DYN_equipe fehlt).	Ce n'est pas une base PBM (table DYN_equipe manquante).
+Not a PBM database.	Keine PBM-Datenbank.	Ce n'est pas une base PBM.
 created with {0}	erstellt mit {0}	créé avec {0}
 start year {0}	Startjahr {0}	année de début {0}
 version info unavailable: {0}	Versionsinfo nicht verfügbar: {0}	informations de version indisponibles : {0}
-{0} tables	{0} Tabellen	{0} tables
-Table {0} not found.	Tabelle {0} nicht gefunden.	Table {0} introuvable.
+Data not found.	Daten nicht gefunden.	Données introuvables.
 Photo (140x160)	Foto (140x160)	Photo (140x160)
 Logo	Logo	Logo
 Jersey home (front + back)	Trikot Heim (vorne + hinten)	Maillot domicile (face + dos)
@@ -266,7 +263,7 @@ Pick two photos (front, back). Saved side by side as one image	Zwei Fotos wähle
 Remove (use game default)	Entfernen (Spiel-Standard nutzen)	Supprimer (utiliser la valeur par défaut)
 Search by name or ID	Suche nach Name oder ID	Recherche par nom ou ID
 Type:	Typ:	Type :
-type_competition value (-1 = all)	Wert von type_competition (-1 = alle)	valeur de type_competition (-1 = tous)
+Competition type (-1 = all)	Wettbewerbstyp (-1 = alle)	Type de compétition (-1 = tous)
 Details	Details	Détails
 Rules	Regeln	Règles
 Teams	Teams	Équipes
@@ -275,7 +272,6 @@ Add	Hinzufügen	Ajouter
 Move selected team to:	Gewähltes Team verschieben nach:	Déplacer l'équipe sélectionnée vers :
 Move	Verschieben	Déplacer
 Phases	Phasen	Phases
-Phases (STA_competition_phase)	Phasen (STA_competition_phase)	Phases (STA_competition_phase)
 Selected phase for the tables below:	Gewählte Phase für die Tabellen darunter:	Phase sélectionnée pour les tables ci-dessous :
 Forced teams	Gesetzte Teams	Équipes imposées
 Qualified teams	Qualifizierte Teams	Équipes qualifiées
@@ -300,8 +296,6 @@ Create arena for this team	Halle für dieses Team anlegen	Créer une salle pour 
 Players	Spieler	Joueurs
 Salary/mo	Gehalt/Mon.	Salaire/mois
 Staff	Staff	Staff
-Staff contracts (DYN_contrat_person)	Staff-Verträge (DYN_contrat_person)	Contrats du staff (DYN_contrat_person)
-Staff persons (DYN_person)	Staff-Personen (DYN_person)	Personnes du staff (DYN_person)
 Mod / save:	Mod / Spielstand:	Mod / sauvegarde :
 Open file...	Datei öffnen...	Ouvrir un fichier...
 Rescan	Neu suchen	Réanalyser
@@ -401,3 +395,136 @@ Discarding changes...	Änderungen werden verworfen...	Abandon des modifications.
 3D match view: beards 1-3 are not drawn.	3D-Spielansicht: Die Bärte 1-3 werden nicht gezeichnet.	Vue 3D du match : les barbes 1 à 3 ne sont pas dessinées.
 {0} (not available for this gender)	{0} (für dieses Geschlecht nicht verfügbar)	{0} (non disponible pour ce sexe)
 {0} (not shown in game)	{0} (im Spiel nicht sichtbar)	{0} (non affiché dans le jeu)
+{0}: {1} row(s) changed	{0}: {1} Zeile(n) geändert	{0} : {1} ligne(s) modifiée(s)
+Player #{0}	Spieler #{0}	Joueur n°{0}
+Staff #{0}	Staff #{0}	Staff n°{0}
+Team #{0}	Team #{0}	Équipe n°{0}
+League #{0}	Liga #{0}	Ligue n°{0}
+Player {0}	Spieler {0}	Joueur {0}
+Attributes of {0}	Attribute von {0}	Attributs de {0}
+Contract of {0}	Vertrag von {0}	Contrat de {0}
+Staff {0}	Staff {0}	Staff {0}
+Team {0}	Team {0}	Équipe {0}
+Arena of {0}	Halle von {0}	Salle de {0}
+League {0}	Liga {0}	Ligue {0}
+Rules of {0}	Regeln von {0}	Règles de {0}
+Data	Daten	Données
+yes	ja	oui
+no	nein	non
+(empty)	(leer)	(vide)
+{0}: moved to {1} (#{2})	{0}: wechselt zu {1} (#{2})	{0} : transféré à {1} (n°{2})
+{0}: released as free agent	{0}: als Free Agent entlassen	{0} : libéré comme agent libre
+{0}: new contract with {1}	{0}: neuer Vertrag bei {1}	{0} : nouveau contrat avec {1}
+{0}: released	{0}: entlassen	{0} : libéré
+{0}: moved to {1}	{0}: wechselt zu {1}	{0} : transféré à {1}
+{0}: moved to league {1}	{0}: wechselt in die Liga {1}	{0} : passe dans la ligue {1}
+Arena of {0}: created ({1})	Halle von {0}: angelegt ({1})	Salle de {0} : créée ({1})
+... and {0} more	... und {0} weitere	... et {0} de plus
+Cheat codes	Cheat-Codes	Codes de triche
+Enter a cheat code to unlock hidden features.	Gib einen Cheat-Code ein, um versteckte Funktionen freizuschalten.	Saisissez un code de triche pour débloquer des fonctions cachées.
+Activate	Aktivieren	Activer
+Unknown cheat code.	Unbekannter Cheat-Code.	Code de triche inconnu.
+Already active: Raw tables.	Bereits aktiv: Rohtabellen.	Déjà actif : tables brutes.
+Cheat activated: the Raw tables tab is now available (until you close the editor).	Cheat aktiviert: Der Reiter Rohtabellen ist jetzt verfügbar (bis der Editor geschlossen wird).	Triche activée : l'onglet Tables brutes est disponible (jusqu'à la fermeture de l'éditeur).
+Cheat codes could not be read: {0}	Cheat-Codes konnten nicht gelesen werden: {0}	Les codes de triche sont illisibles : {0}
+Order	Reihenfolge	Ordre
+Team source	Team-Herkunft	Origine des équipes
+Days between matches	Tage zwischen Spielen	Jours entre les matchs
+Start date	Startdatum	Date de début
+Start date type	Startdatum-Typ	Type de date de début
+Distribution type	Verteilungsart	Type de répartition
+Group type	Gruppentyp	Type de groupe
+Matches	Spiele	Matchs
+Final matches	Finalspiele	Matchs de finale
+Teams per group	Teams pro Gruppe	Équipes par groupe
+Total teams	Teams gesamt	Total d'équipes
+First group number	Erste Gruppennummer	Premier numéro de groupe
+Groups	Gruppen	Groupes
+Group naming	Gruppenbenennung	Nom des groupes
+Max rounds	Max. Runden	Tours max
+Phase type	Phasentyp	Type de phase
+Standings type	Tabellentyp	Type de classement
+Phase name	Phasenname	Nom de la phase
+Description	Beschreibung	Description
+Awards: days cancelled	Auszeichnungen: Tage entfallen	Récompenses : jours annulés
+Awards: weeks cancelled	Auszeichnungen: Wochen entfallen	Récompenses : semaines annulées
+Awards: months cancelled	Auszeichnungen: Monate entfallen	Récompenses : mois annulés
+MVP type	MVP-Typ	Type de MVP
+Match priority	Spielpriorität	Priorité des matchs
+First match date	Datum erstes Spiel	Date du premier match
+Last match date	Datum letztes Spiel	Date du dernier match
+Allows national team call-ups	Erlaubt Nationalmannschafts-Abstellungen	Autorise les sélections nationales
+Carry over previous standings	Vorherige Tabelle übernehmen	Reporter le classement précédent
+Days between rounds	Tage zwischen Runden	Jours entre les tours
+Phase	Phase	Phase
+Amount (EUR)	Betrag (EUR)	Montant (EUR)
+Position	Platzierung	Position
+Quota	Quote	Quota
+Quota type	Quotentyp	Type de quota
+Source type	Quelltyp	Type de source
+Source type 2	Quelltyp 2	Type de source 2
+Country 2	Land 2	Pays 2
+Phase order	Phasenreihenfolge	Ordre de phase
+Conference	Konferenz	Conférence
+Group	Gruppe	Groupe
+Position type	Positionstyp	Type de position
+Target competition	Zielwettbewerb	Compétition cible
+Objective phase	Zielphase	Phase de l'objectif
+Objective type	Zieltyp	Type d'objectif
+Budget / reputation rank	Budget-/Ansehensrang	Rang budget / réputation
+Objective competition	Zielwettbewerb (Ziel)	Compétition de l'objectif
+Season start	Saisonstart	Début de saison
+Qualification type	Qualifikationstyp	Type de qualification
+Origin position	Ausgangsposition	Position d'origine
+Origin position type	Ausgangspositionstyp	Type de position d'origine
+Origin phase	Ausgangsphase	Phase d'origine
+Origin competition	Ausgangswettbewerb	Compétition d'origine
+Origin team	Ausgangsteam	Équipe d'origine
+Origin conference	Ausgangskonferenz	Conférence d'origine
+Origin group	Ausgangsgruppe	Groupe d'origine
+Seniority type	Vorrangtyp	Type d'antériorité
+Optional	Optional	Optionnel
+Round	Runde	Tour
+Previous phase position	Position der Vorphase	Position de la phase précédente
+Previous phase position type	Positionstyp der Vorphase	Type de position précédente
+Previous phase group	Gruppe der Vorphase	Groupe de la phase précédente
+Previous phase competition	Wettbewerb der Vorphase	Compétition de la phase précédente
+Previous phase order	Reihenfolge der Vorphase	Ordre de la phase précédente
+Match index	Spielindex	Index du match
+Previous round	Vorherige Runde	Tour précédent
+Previous index	Vorheriger Index	Index précédent
+New round type	Typ der neuen Runde	Type du nouveau tour
+Team source type	Team-Herkunftstyp	Type d'origine de l'équipe
+Qualified team competition	Wettbewerb des qualifizierten Teams	Compétition de l'équipe qualifiée
+Weekday	Wochentag	Jour de la semaine
+Pool number	Poolnummer	Numéro de poule
+Number of matches	Anzahl Begegnungen	Nombre de rencontres
+Match day type	Spieltagtyp	Type de journée
+Match day	Spieltag	Journée
+Week number	Wochennummer	Numéro de semaine
+Database error (code {0}).	Datenbankfehler (Code {0}).	Erreur de base de données (code {0}).
+Overall (attributes)	Gesamtwertung (Attribute)	Note globale (attributs)
+Read-only.	Schreibgeschützt.	Lecture seule.
+problems found	Probleme gefunden	problèmes détectés
+Condition	Zustand	Condition
+Injury risk	Verletzungsrisiko	Risque de blessure
+Character	Charakter	Caractère
+Team spirit	Teamgeist	Esprit d'équipe
+Form	Form	Forme
+Fatigue	Müdigkeit	Fatigue
+Injured	Verletzt	Blessé
+Shoulders	Schultern	Épaules
+Back	Rücken	Dos
+Hands	Hände	Mains
+Hips	Hüften	Hanches
+Knees	Knie	Genoux
+Ankles	Knöchel	Chevilles
+Work ethic	Arbeitseinstellung	Éthique de travail
+Understanding	Auffassungsgabe	Compréhension
+Confidence	Selbstvertrauen	Confiance
+Sociability	Geselligkeit	Sociabilité
+Social need	Soziales Bedürfnis	Besoin social
+Patience	Geduld	Patience
+Diplomacy	Diplomatie	Diplomatie
+Offensive cohesion	Offensive Kohäsion	Cohésion offensive
+Defensive cohesion	Defensive Kohäsion	Cohésion défensive

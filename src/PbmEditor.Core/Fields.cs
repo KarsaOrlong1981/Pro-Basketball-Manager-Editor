@@ -119,10 +119,10 @@ public sealed class Field : ObservableObject
             case ColumnKind.Integer:
                 if (long.TryParse(t, NumberStyles.Integer, CultureInfo.InvariantCulture, out var l)) return l;
                 if (double.TryParse(t, NumberStyles.Float, CultureInfo.InvariantCulture, out var d)) return (long)Math.Round(d);
-                throw new FormatException(Loc.F("'{0}' ({1}): '{2}' is not a whole number.", Label, Name, t));
+                throw new FormatException(Loc.F("'{0}': '{1}' is not a whole number.", Label, t));
             case ColumnKind.Real:
                 if (double.TryParse(t, NumberStyles.Float, CultureInfo.InvariantCulture, out var r)) return r;
-                throw new FormatException(Loc.F("'{0}' ({1}): '{2}' is not a number.", Label, Name, t));
+                throw new FormatException(Loc.F("'{0}': '{1}' is not a number.", Label, t));
             default:
                 if (_text.Length == 0 && OriginalValue is null) return null;
                 return Encoded ? PbmCodec.Encode(_text) : _text;

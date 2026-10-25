@@ -16,6 +16,20 @@ public sealed class MainVm : ObservableObject
     string _status = Loc.T("Choose a mod or save game.");
     string _pending = "";
     bool _isBusy;
+    bool _rawUnlocked;
+    string _cheatCode = "";
+    string _cheatResult = "";
+    /// <summary>Codes live outside the app: one "feature=CODE" per line, '#' starts a comment. No file, no codes.</summary>
+    static string CheatFile => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "PbmEditor", "cheatcodes.txt");
+
+    static string NormalizeCode(string s) => new string(s.Where(char.IsLetterOrDigit).ToArray()).ToUpperInvariant();
+
+    static bool CodeUnlocks(string feature, string entered)
+    {
+        if (!File.Exists(CheatFile)) return false;
+        return File.ReadLines(CheatFile).Select(l => l.Trim()).Where(l => l.Length > 0 && l[0] != '#')
+            .Select(l => l.Split('=', 2)).Any(p => p.Length == 2 && p[0].Trim().Equals(feature, StringComparison.OrdinalIgnoreCase) && NormalizeCode(p[1]) == entered);
+    }
     string _busyText = "";
     readonly DispatcherTimer _timer = new() { Interval = TimeSpan.FromSeconds(1) };
 
@@ -34,6 +48,11 @@ public sealed class MainVm : ObservableObject
     public LeaguesVm? Leagues { get; private set; }
     public RawVm? Raw { get; private set; }
     public bool IsOpen => _db != null;
+    /// <summary>Raw table browser (shows SQL and table names): hidden until the cheat code is entered (per session).</summary>
+    public bool ShowRaw => _rawUnlocked;
+    public ICommand ApplyCheatCommand { get; }
+    public string CheatCode { get => _cheatCode; set => Set(ref _cheatCode, value); }
+    public string CheatResult { get => _cheatResult; private set => Set(ref _cheatResult, value); }
     public string Status { get => _status; private set => Set(ref _status, value); }
     public string Pending { get => _pending; private set => Set(ref _pending, value); }
 
@@ -78,6 +97,7 @@ public sealed class MainVm : ObservableObject
         DiscardCommand = new RelayCommand(Discard, () => IsOpen && !IsBusy);
         ShowChangesCommand = new RelayCommand(ShowChanges, () => IsOpen && !IsBusy);
         NewModCommand = new RelayCommand(NewMod, () => !IsBusy);
+        ApplyCheatCommand = new RelayCommand(ApplyCheat);
         _timer.Tick += (_, _) => UpdatePending();
         _timer.Start();
         LoadMods();
@@ -228,18 +248,33 @@ public sealed class MainVm : ObservableObject
                 Teams = new TeamsVm(_db, Images);
                 FreeAgents = new FreeAgentsVm(_db, Images);
                 Leagues = new LeaguesVm(_db, Images);
-                Raw = new RawVm(_db);
+                Raw = _rawUnlocked ? new RawVm(_db) : null;
                 Status = Loc.F("{0}  |  {1}  |  images: {2}", path, version, Images.Root ?? Loc.T("none (no image folder found)"));
                 ok = true;
             }
             catch (Exception e) when (e is Microsoft.Data.Sqlite.SqliteException or IOException or InvalidDataException)
             {
-                Dialogs.Error(Loc.T("Cannot open database:") + "\n" + e.Message);
+                Dialogs.Error(Loc.T("Cannot open database:") + "\n" + ErrorText.For(e));
                 Teams = null; FreeAgents = null; Leagues = null; Raw = null;
             }
             RaiseAll();
         });
         return ok;
+    }
+
+    void ApplyCheat()
+    {
+        var entered = NormalizeCode(CheatCode);
+        CheatCode = "";
+        bool ok;
+        try { ok = entered.Length > 0 && CodeUnlocks("rawtables", entered); }
+        catch (IOException e) { CheatResult = Loc.F("Cheat codes could not be read: {0}", e.Message); return; }
+        if (!ok) { CheatResult = Loc.T("Unknown cheat code."); return; }
+        if (_rawUnlocked) { CheatResult = Loc.T("Already active: Raw tables."); return; }
+        _rawUnlocked = true;
+        if (_db != null) Raw = new RawVm(_db);
+        Notify(nameof(ShowRaw)); Notify(nameof(Raw));
+        CheatResult = Loc.T("Cheat activated: the Raw tables tab is now available (until you close the editor).");
     }
 
     void RaiseAll()
@@ -260,7 +295,7 @@ public sealed class MainVm : ObservableObject
             try
             {
                 foreach (var p in Parts) p?.Flush(); // editors -> transaction (first write also takes the backup)
-                var n = db.Log.Count;
+                var n = db.Changes.Count;
                 BusyText = Loc.T("Writing changes...");
                 await Task.Run(() => { db.Commit(); Images.Flush(); });
                 BusyText = Loc.T("Checking database integrity...");
@@ -269,11 +304,11 @@ public sealed class MainVm : ObservableObject
                 await YieldToUi();
                 GameService.InvalidateCache(db);
                 foreach (var p in Parts) p?.Reload();
-                Status = Loc.F("Saved ({0} statements). Integrity check: {1}. Changes in a mod only apply to NEW careers.", n, check);
+                Status = Loc.F("Saved ({0} changes). Integrity check: {1}. Changes in a mod only apply to NEW careers.", n, check == "ok" ? "ok" : Loc.T("problems found"));
             }
             catch (Exception e) when (e is FormatException or Microsoft.Data.Sqlite.SqliteException or IOException)
             {
-                Dialogs.Error(Loc.T("Save failed - nothing was committed:") + "\n" + e.Message);
+                Dialogs.Error(Loc.T("Save failed - nothing was committed:") + "\n" + ErrorText.For(e));
             }
         });
     }
@@ -298,14 +333,15 @@ public sealed class MainVm : ObservableObject
         if (_db == null) return;
         try { foreach (var p in Parts) p?.Flush(); }
         catch (FormatException e) { Dialogs.Error(e.Message); return; }
-        MessageBox.Show(_db.Log.Count == 0 ? Loc.T("No pending changes.") : string.Join("\n", _db.Log.TakeLast(60)) +
+        MessageBox.Show(_db.Changes.Count == 0 ? Loc.T("No pending changes.") : string.Join("\n", _db.Changes.Take(60)) +
+            (_db.Changes.Count > 60 ? "\n" + Loc.F("... and {0} more", _db.Changes.Count - 60) : "") +
             (_db.BackupPath != null ? "\n\n" + Loc.F("Backup: {0}", _db.BackupPath) : ""), Loc.T("Pending changes"));
     }
 
     void UpdatePending()
     {
         Pending = _db == null ? "" : _db.HasPendingChanges || Images.HasPending
-            ? Loc.F("Unsaved: {0} statements", _db.Log.Count) + (Images.HasPending ? Loc.T(" + images") : "") : "";
+            ? Loc.F("Unsaved: {0} changes", _db.Changes.Count) + (Images.HasPending ? Loc.T(" + images") : "") : "";
     }
 
     public void Close() => _db?.Dispose();

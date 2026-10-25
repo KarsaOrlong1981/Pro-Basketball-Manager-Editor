@@ -51,7 +51,10 @@ public sealed class PbmDatabase : IDisposable
     public string Path { get; }
     public string BackupDir { get; }
     public string? BackupPath { get; private set; }
+    /// <summary>Raw statements (diagnostics only, never shown to the user).</summary>
     public List<string> Log { get; } = new();
+    /// <summary>Human-readable description of the pending changes, shown in the UI.</summary>
+    public List<string> Changes { get; } = new();
     public bool HasPendingChanges => _tx != null;
 
     PbmDatabase(string path, string backupDir)
@@ -75,7 +78,7 @@ public sealed class PbmDatabase : IDisposable
         try
         {
             if (!db.TableNames.Any(n => n.Equals("DYN_equipe", StringComparison.OrdinalIgnoreCase)))
-                throw new InvalidDataException(Loc.T("Not a PBM database (table DYN_equipe missing)."));
+                throw new InvalidDataException(Loc.T("Not a PBM database."));
         }
         catch { db.Dispose(); throw; }
         return db;
@@ -134,6 +137,9 @@ public sealed class PbmDatabase : IDisposable
         return n;
     }
 
+    /// <summary>Records a user-facing description of a change (no SQL, no table names).</summary>
+    public void Note(string text) => Changes.Add(text);
+
     public long LastInsertId() => Convert.ToInt64(Scalar("SELECT last_insert_rowid()"));
 
     void EnsureTransaction()
@@ -162,6 +168,7 @@ public sealed class PbmDatabase : IDisposable
         _tx?.Dispose();
         _tx = null;
         Log.Clear();
+        Changes.Clear();
     }
 
     public void Rollback()
@@ -170,6 +177,7 @@ public sealed class PbmDatabase : IDisposable
         _tx?.Dispose();
         _tx = null;
         Log.Clear();
+        Changes.Clear();
     }
 
     public string IntegrityCheck() => Scalar("PRAGMA integrity_check")?.ToString() ?? "?";
@@ -185,8 +193,7 @@ public sealed class PbmDatabase : IDisposable
             if (GetTable("STA_infos_database")?.Has("annee_debut_jeu") == true)
                 parts.Add(Loc.F("start year {0}", Scalar("SELECT annee_debut_jeu FROM STA_infos_database LIMIT 1")));
         }
-        catch (SqliteException e) { parts.Add(Loc.F("version info unavailable: {0}", e.Message)); }
-        parts.Add(Loc.F("{0} tables", TableNames.Count()));
+        catch (SqliteException e) { parts.Add(Loc.F("version info unavailable: {0}", ErrorText.For(e))); }
         return string.Join(", ", parts);
     }
 

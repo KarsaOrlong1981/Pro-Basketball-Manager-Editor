@@ -153,15 +153,18 @@ public static class GameService
             throw new InvalidOperationException(Loc.F("Jersey number {0} is already taken in the target team.", num));
 
         var active = db.Query("SELECT id FROM DYN_contrat WHERE id_joueur=@p0 AND accepte=0", playerId);
+        var who = ChangeNames.Player(db, playerId);
         db.Execute("UPDATE DYN_joueur SET team_id=@p0, numero_actuel=@p1 WHERE joueur_id=@p2", newTeamId, num, playerId);
         if (active.Count > 0)
             db.Execute("UPDATE DYN_contrat SET id_equipe=@p0 WHERE id_joueur=@p1 AND accepte=0", newTeamId, playerId);
         else
             CreateContract(db, playerId, newTeamId);
+        db.Note(Loc.F("{0}: moved to {1} (#{2})", who, ChangeNames.Team(db, newTeamId), num));
     }
 
     public static void MakeFreeAgent(PbmDatabase db, long playerId)
     {
+        db.Note(Loc.F("{0}: released as free agent", ChangeNames.Player(db, playerId)));
         db.Execute("UPDATE DYN_joueur SET team_id=0, numero_actuel=255 WHERE joueur_id=@p0", playerId);
         db.Execute("DELETE FROM DYN_contrat WHERE id_joueur=@p0 AND accepte=0", playerId);
     }
@@ -180,6 +183,7 @@ public static class GameService
             "id" => (object?)newId, "id_joueur" => playerId, "id_equipe" => teamId, "accepte" => 0L, _ => template[c],
         }).ToArray();
         db.Execute($"INSERT INTO DYN_contrat ({string.Join(",", cols.Select(c => $"\"{c}\""))}) VALUES ({string.Join(",", cols.Select((_, i) => "@p" + i))})", vals);
+        db.Note(Loc.F("{0}: new contract with {1}", ChangeNames.Player(db, playerId), ChangeNames.Team(db, teamId)));
         return newId;
     }
 
@@ -212,6 +216,9 @@ public static class GameService
     /// <summary>Moves a staff member to another team (contract follows), or releases them (team 0, contract deleted).</summary>
     public static void MoveStaff(PbmDatabase db, long personId, long newTeamId)
     {
+        db.Note(newTeamId == 0
+            ? Loc.F("{0}: released", ChangeNames.Person(db, personId))
+            : Loc.F("{0}: moved to {1}", ChangeNames.Person(db, personId), ChangeNames.Team(db, newTeamId)));
         db.Execute("UPDATE DYN_person SET equipe_id=@p0 WHERE id_person=@p1", newTeamId, personId);
         if (newTeamId == 0) db.Execute("DELETE FROM DYN_contrat_person WHERE id_person=@p0 AND accepte=0", personId);
         else db.Execute("UPDATE DYN_contrat_person SET id_equipe=@p0 WHERE id_person=@p1 AND accepte=0", newTeamId, personId);
@@ -219,8 +226,11 @@ public static class GameService
 
     // ---- teams / finance ----
 
-    public static void SetTeamLeague(PbmDatabase db, long teamId, long leagueId) =>
+    public static void SetTeamLeague(PbmDatabase db, long teamId, long leagueId)
+    {
+        db.Note(Loc.F("{0}: moved to league {1}", ChangeNames.Team(db, teamId), ChangeNames.League(db, leagueId)));
         db.Execute("UPDATE DYN_equipe SET championnat_id=@p0 WHERE id_equipe=@p1", leagueId, teamId);
+    }
 
     public sealed record Finance(long MonthlyPlayers, long MonthlyStaff, long Budget)
     {
@@ -244,6 +254,7 @@ public static class GameService
     public static long CreateArena(PbmDatabase db, long teamId, string name)
     {
         var id = Convert.ToInt64(db.Scalar("SELECT COALESCE(MAX(id_facility),0)+1 FROM DYN_facilities"));
+        db.Note(Loc.F("Arena of {0}: created ({1})", ChangeNames.Team(db, teamId), name));
         db.Execute("INSERT INTO DYN_facilities (id_facility,id_team,name_arena,capacity) VALUES (@p0,@p1,@p2,@p3)", id, teamId, name,
             db.Scalar("SELECT capacite_salle FROM DYN_equipe WHERE id_equipe=@p0", teamId) ?? 3000L);
         return id;

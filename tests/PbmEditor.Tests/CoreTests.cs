@@ -143,4 +143,37 @@ public class DbTests
         Assert.Equal(1L, Convert.ToInt64(db.Scalar("SELECT id_equipe FROM DYN_contrat WHERE id_joueur=10 AND accepte=0")));
         Assert.Throws<InvalidOperationException>(() => GameService.MovePlayer(db, 11, 1, 5));
     }
+
+    [Fact]
+    public void Changes_AreReadable_AndNeverContainSqlOrTableNames()
+    {
+        using var t = new TempDb(); using var db = t.Open();
+        var ed = new RowEditor(db, "DYN_equipe", "id_equipe", 1);
+        ed["budget"]!.Text = "1500";
+        ed.Save();
+        GameService.MovePlayer(db, 10, 2);
+        Assert.NotEmpty(db.Changes);
+        Assert.All(db.Changes, c => Assert.DoesNotMatch("(?i)UPDATE |INSERT |DELETE |DYN_|STA_|joueur_id|id_equipe", c));
+        Assert.Contains(db.Changes, c => c.Contains("1000") && c.Contains("1500"));
+        db.Rollback();
+        Assert.Empty(db.Changes);
+    }
+
+    [Fact]
+    public void ConfiguredEditors_HideUnlistedColumns_AndKeepColumnsTheAppReads()
+    {
+        using var t = new TempDb(); using var db = t.Open();
+        var set = new FieldSet().Add("id_equipe", "Team ID", "Identity").Add("nom_equipe", "Name", "Identity");
+        var ed = new RowEditor(db, "DYN_equipe", "id_equipe", 1, set);
+        Assert.Equal(new[] { "id_equipe", "nom_equipe" }, ed.Fields.Select(f => f.Name).OrderBy(n => n).ToArray()); // budget etc. stay hidden
+        Assert.Null(ed["budget"]);
+        // columns that view models access directly must have a field spec
+        var player = FieldConfigs.Player();
+        foreach (var c in new[] { "annee_naissance", "couleur", "couleur_cheveux", "joueur_nom", "joueur_prenom", "jour_naissance", "mois_naissance", "moyenne", "sexe", "team_id", "type_barbe", "type_coiffure" })
+            Assert.NotNull(player.Find(c));
+        var person = FieldConfigs.Person();
+        foreach (var c in new[] { "couleur_cheveux", "couleur_peau", "equipe_id", "nom", "prenom", "sexe", "type_barbe", "type_coiffure" })
+            Assert.NotNull(person.Find(c));
+        Assert.NotNull(FieldConfigs.Attributes().Find("moyenne"));
+    }
 }

@@ -35,7 +35,7 @@
     <DataTemplate DataType="{x:Type core:Field}">
       <Grid Margin="0,1">
         <Grid.ColumnDefinitions><ColumnDefinition Width="210"/><ColumnDefinition Width="*" MaxWidth="420"/></Grid.ColumnDefinitions>
-        <TextBlock Text="{Binding Label}" ToolTip="{Binding Name}" Margin="4,0">
+        <TextBlock Text="{Binding Label}" Margin="4,0">
           <TextBlock.Style>
             <Style TargetType="TextBlock">
               <Style.Triggers>

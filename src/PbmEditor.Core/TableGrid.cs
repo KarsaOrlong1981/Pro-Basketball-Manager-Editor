@@ -14,6 +14,12 @@ public sealed class TableGrid
     TableInfo _info = null!;
 
     public string Table { get; }
+    /// <summary>Column that is fixed by the filter (hidden in the UI, filled automatically for new rows).</summary>
+    public string? FilterColumn => _filterColumn;
+    /// <summary>Raw view only: show internal column names instead of friendly headers.</summary>
+    public bool RawNames { get; init; }
+    /// <summary>User-facing name used in the change list; the raw table name is only a fallback (debug raw view).</summary>
+    public string Title { get; init; }
     public DataTable Data { get; private set; } = new();
     public bool ReadOnly { get; private set; }
     public bool Truncated { get; private set; }
@@ -23,13 +29,13 @@ public sealed class TableGrid
     /// <param name="where">Optional raw WHERE fragment (local tool, raw table browser only).</param>
     public TableGrid(PbmDatabase db, string table, string? filterColumn = null, object? filterValue = null, string? where = null)
     {
-        _db = db; Table = table; _filterColumn = filterColumn; _filterValue = filterValue; _where = where;
+        _db = db; Table = table; Title ??= table; _filterColumn = filterColumn; _filterValue = filterValue; _where = where;
         Load();
     }
 
     public void Load()
     {
-        _info = _db.GetTable(Table) ?? throw new InvalidOperationException($"Table {Table} not found.");
+        _info = _db.GetTable(Table) ?? throw new InvalidOperationException(Loc.T("Data not found."));
         ReadOnly = _info.PkColumns.Count == 0;
 
         var sql = $"SELECT * FROM \"{Table}\"";
@@ -135,6 +141,7 @@ public sealed class TableGrid
             }
         }
         Data.AcceptChanges();
+        if (n > 0) _db.Note(Loc.F("{0}: {1} row(s) changed", Title, n));
         return n;
     }
 }

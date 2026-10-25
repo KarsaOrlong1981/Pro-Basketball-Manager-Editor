@@ -20,8 +20,18 @@ public partial class GridPanel : UserControl
     {
         Grid.ItemsSource = Model?.Data.DefaultView;
         Grid.IsReadOnly = Model?.ReadOnly ?? true;
-        Info.Text = Model == null ? "(table not available in this database)" :
-            Model.ReadOnly ? "Read-only (no primary key)" : Model.Truncated ? $"Limited to {TableGrid.MaxRows} rows" : "";
+        Info.Text = Model == null ? "(not available in this database)" :
+            Model.ReadOnly ? "Read-only" : Model.Truncated ? $"Limited to {TableGrid.MaxRows} rows" : "";
+    }
+
+    // headers are cosmetic: the binding keeps the real column name, so editing is unaffected
+    void Grid_AutoGeneratingColumn(object? sender, DataGridAutoGeneratingColumnEventArgs e)
+    {
+        if (Model == null || Model.RawNames) return;
+        var name = e.PropertyName;
+        if (name.Equals("id", StringComparison.OrdinalIgnoreCase) || name.Equals(Model.FilterColumn, StringComparison.OrdinalIgnoreCase))
+            e.Column.Visibility = Visibility.Collapsed;
+        e.Column.Header = ColumnLabels.For(name);
     }
 
     void Add_Click(object sender, RoutedEventArgs e)

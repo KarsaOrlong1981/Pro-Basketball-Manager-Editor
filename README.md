@@ -16,7 +16,6 @@ Unofficial fan tool, not affiliated with Umix Studios. Always work on a mod or a
 - **Free agents**: search, edit and sign for a team.
 - **Leagues and cups**: names and settings, rules, team assignment, phases, forced and qualified teams, brackets, match days, prize money, quotas, promotion and relegation, objectives, divisions.
 - **Jerseys**: preview of the game's default kit (front and back) from the team colours, one-click generation, combine a front and a back photo into one image, or remove the file to fall back to the default.
-- **Raw tables**: browse and edit any table, with an optional `WHERE` filter.
 - **Languages**: English (default), German and French, switchable at runtime.
 
 ## Safety
@@ -66,7 +65,7 @@ Jerseys: the game loads `jerseys/<teamId>_HOME.png` or `_AWAY.png` (one picture 
 - `src/PbmEditor.App`: WPF application (MVVM-style view models).
 - `tests/PbmEditor.Tests`: xUnit tests.
 
-The editor builds its forms from the live schema (`PRAGMA table_info`). New columns in newer game versions appear under "Other", and missing columns or tables are skipped, so it should keep working with newer game versions as long as the database stays SQLite.
+The editor builds its forms from the live schema (`PRAGMA table_info`). Internal columns without a field definition are hidden, and missing columns or tables are skipped, so it should keep working with newer game versions as long as the database stays SQLite.
 
 ## Translations
 

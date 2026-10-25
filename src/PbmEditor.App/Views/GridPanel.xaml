@@ -8,7 +8,7 @@
       <Button Content="{loc:T 'Delete selected rows'}" Click="Delete_Click"/>
       <TextBlock x:Name="Info" Margin="8,0" Foreground="Gray"/>
     </StackPanel>
-    <DataGrid x:Name="Grid" AutoGenerateColumns="True" CanUserAddRows="False" CanUserDeleteRows="False"
+    <DataGrid x:Name="Grid" AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn" CanUserAddRows="False" CanUserDeleteRows="False"
               SelectionMode="Extended" EnableRowVirtualization="True" EnableColumnVirtualization="True"
               AlternatingRowBackground="#F5F5F5" GridLinesVisibility="Horizontal"/>
   </DockPanel>
