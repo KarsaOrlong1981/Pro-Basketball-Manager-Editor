@@ -27,7 +27,10 @@
         <Button Content="{loc:T 'Save'}" Command="{Binding SaveCommand}" FontWeight="Bold"/>
       </StackPanel>
     </Grid>
-    <StatusBar DockPanel.Dock="Bottom"><TextBlock Text="{Binding Status}" TextWrapping="Wrap"/></StatusBar>
+    <StatusBar DockPanel.Dock="Bottom">
+      <StatusBarItem DockPanel.Dock="Right"><TextBlock Text="{Binding AppVersion}" Foreground="Gray"/></StatusBarItem>
+      <StatusBarItem><TextBlock Text="{Binding Status}" TextWrapping="Wrap"/></StatusBarItem>
+    </StatusBar>
     <TabControl>
       <TabItem Header="{loc:T 'Teams and players'}"><v:TeamsView DataContext="{Binding Teams}"/></TabItem>
       <TabItem Header="{loc:T 'Free agents'}"><v:FreeAgentsView DataContext="{Binding FreeAgents}"/></TabItem>

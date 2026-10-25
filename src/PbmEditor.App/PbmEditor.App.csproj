@@ -6,7 +6,19 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <AssemblyName>PbmEditor</AssemblyName>
+    <Version>0.0.1-alpha</Version>
+    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <FileVersion>0.0.1.0</FileVersion>
+    <Product>PBM Editor</Product>
+    <Copyright>MIT License</Copyright>
   </PropertyGroup>
+  <!-- app icon (taskbar, desktop, exe): used as soon as the file exists -->
+  <PropertyGroup Condition="Exists('Assets\app.ico')">
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup Condition="Exists('Assets\app.ico')">
+    <Resource Include="Assets\app.ico" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PbmEditor.Core\PbmEditor.Core.csproj" />
   </ItemGroup>

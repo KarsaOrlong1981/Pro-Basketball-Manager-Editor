@@ -50,6 +50,10 @@ public sealed class MainVm : ObservableObject
     public bool IsOpen => _db != null;
     /// <summary>Raw table browser (shows SQL and table names): hidden until the cheat code is entered (per session).</summary>
     public bool ShowRaw => _rawUnlocked;
+    /// <summary>Shown bottom right, e.g. "v0.0.1-alpha" (build metadata after "+" is cut).</summary>
+    public string AppVersion { get; } = "v" + (System.Reflection.Assembly.GetExecutingAssembly()
+        .GetCustomAttributes(typeof(System.Reflection.AssemblyInformationalVersionAttribute), false)
+        .OfType<System.Reflection.AssemblyInformationalVersionAttribute>().FirstOrDefault()?.InformationalVersion ?? "?").Split('+')[0];
     public ICommand ApplyCheatCommand { get; }
     public string CheatCode { get => _cheatCode; set => Set(ref _cheatCode, value); }
     public string CheatResult { get => _cheatResult; private set => Set(ref _cheatResult, value); }

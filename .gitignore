@@ -5,3 +5,4 @@ obj/
 *.pbmsave
 *.pbmsave-shm
 *.pbmsave-wal
+publish/
