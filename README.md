@@ -1,5 +1,7 @@
 # PBM Editor
 
+> **Compatibility:** This tool only works with **Pro Basketball Manager 2025**. Pro Basketball Manager 2026 has not been tested. If it turns out to be incompatible, a separate version for PBM 2026 will follow soon.
+
 A desktop editor for **Pro Basketball Manager 2025** mods and save games. It edits the game's SQLite database (`.pbmsave`) through forms instead of raw tables: teams, players, leagues, cups, finances, contracts, logos, jerseys and photos.
 
 Unofficial fan tool, not affiliated with Umix Studios. Always work on a mod or a copy of a save; the editor also makes a backup before the first write.
