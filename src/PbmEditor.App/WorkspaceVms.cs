@@ -61,6 +61,9 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
     public ImageSlot ArenaInside { get; }
     public ImageSlot ArenaOutside { get; }
     public ICommand CreateArenaCommand { get; }
+    public ICommand NewPlayerCommand { get; }
+    /// <summary>Raised when a new player was created as free agent (the free agent list must refresh).</summary>
+    public Action? FreeAgentCreated { get; set; }
 
     public LeagueItem? LeagueFilter
     {
@@ -100,7 +103,28 @@ public sealed class TeamsVm : ObservableObject, IWorkspacePart
         ArenaInside = new ImageSlot(store, "Arena inside", "arenas", "{0}_INSIDE.jpg", ImageKind.Jpeg, 1920, 1080, 120);
         ArenaOutside = new ImageSlot(store, "Arena outside", "arenas", "{0}_OUTSIDE.jpg", ImageKind.Jpeg, 1920, 1080, 120);
         CreateArenaCommand = new RelayCommand(CreateArena, () => NoArena);
+        NewPlayerCommand = new RelayCommand(AddPlayer);
         Reload();
+    }
+
+    void AddPlayer()
+    {
+        if (!TryFlush()) return;
+        if (NewPlayerDialog.Run(_db, _selected?.Id ?? 0) is not var (id, teamId)) return;
+        if (teamId == 0)
+        {
+            FreeAgentCreated?.Invoke();
+            Dialogs.Info(Loc.T("The player was created as free agent. Find them in the 'Free agents' tab."));
+            return;
+        }
+        if (_selected?.Id != teamId)
+        {
+            LeagueFilter = Leagues[0];
+            SelectedTeam = Teams.SourceCollection.Cast<TeamItem>().FirstOrDefault(t => t.Id == teamId);
+        }
+        RefreshPlayers();
+        RefreshFinance();
+        SelectedPlayer = Players.FirstOrDefault(p => p.Id == id);
     }
 
     void Resync(string prop) => Application.Current.Dispatcher.BeginInvoke(() => Notify(prop));
@@ -252,6 +276,9 @@ public sealed class FreeAgentsVm : ObservableObject, IWorkspacePart
     public string Count { get => _count; private set => Set(ref _count, value); }
     public TeamItem? Target { get => _target; set => Set(ref _target, value); }
     public ICommand SignCommand { get; }
+    public ICommand NewPlayerCommand { get; }
+    /// <summary>Raised when a new player was created for a team (the team view must refresh).</summary>
+    public Action? TeamPlayerCreated { get; set; }
 
     public string Search
     {
@@ -278,7 +305,33 @@ public sealed class FreeAgentsVm : ObservableObject, IWorkspacePart
     {
         _db = db; _store = store;
         SignCommand = new RelayCommand(Sign, () => Selected != null && Target != null);
+        NewPlayerCommand = new RelayCommand(AddPlayer);
         Reload();
+    }
+
+    void AddPlayer()
+    {
+        try { Player?.Flush(); }
+        catch (FormatException e) { Dialogs.Error(e.Message); return; }
+        if (NewPlayerDialog.Run(_db, 0) is not var (id, teamId)) return;
+        if (teamId != 0)
+        {
+            TeamPlayerCreated?.Invoke();
+            Dialogs.Info(Loc.T("The player was created for the team. Find them in the 'Teams and players' tab."));
+            return;
+        }
+        Search = "";
+        Reload();
+        var created = _all.FirstOrDefault(p => p.Id == id);
+        if (created == null)
+        {
+            // the list only holds the best 20,000 by rating: add the new player explicitly
+            created = GameService.PlayerById(_db, id);
+            if (created == null) return;
+            _all.Insert(0, created);
+            Players.Refresh();
+        }
+        Selected = created;
     }
 
     public void Reload()

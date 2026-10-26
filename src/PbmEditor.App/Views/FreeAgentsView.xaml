@@ -10,6 +10,7 @@
       <TextBlock Text="{loc:T 'Sign for team:'}" Margin="12,0,6,0"/>
       <ComboBox Width="320" ItemsSource="{Binding Teams}" SelectedItem="{Binding Target}" TextSearch.TextPath="Name"/>
       <Button Content="{loc:T 'Sign selected player'}" Command="{Binding SignCommand}"/>
+      <Button Content="{loc:T 'New player...'}" Command="{Binding NewPlayerCommand}" Margin="12,0,0,0" ToolTip="{loc:T 'Create a new player (free agent or for a team)'}"/>
       <TextBlock Text="{Binding Count}" Foreground="Gray" Margin="10,0"/>
     </StackPanel>
     <Grid>

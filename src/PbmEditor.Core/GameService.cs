@@ -137,6 +137,11 @@ public static class GameService
         db.Query("SELECT joueur_id, joueur_prenom, joueur_nom, moyenne, numero_actuel FROM DYN_joueur WHERE team_id=0 ORDER BY moyenne DESC LIMIT 20000")
             .Select(r => new PlayerItem(r.Int("joueur_id"), Dec(r["joueur_prenom"]), Dec(r["joueur_nom"]), r.Dbl("moyenne"), r.Int("numero_actuel"), 0)).ToList();
 
+    public static PlayerItem? PlayerById(PbmDatabase db, long playerId) =>
+        db.Query("SELECT joueur_id, joueur_prenom, joueur_nom, moyenne, numero_actuel FROM DYN_joueur WHERE joueur_id=@p0", playerId)
+            .Select(r => new PlayerItem(r.Int("joueur_id"), Dec(r["joueur_prenom"]), Dec(r["joueur_nom"]), r.Dbl("moyenne"), r.Int("numero_actuel"), 0))
+            .FirstOrDefault();
+
     public static long NextFreeNumber(PbmDatabase db, long teamId)
     {
         var used = db.Query("SELECT numero_actuel FROM DYN_joueur WHERE team_id=@p0", teamId).Select(r => r.Int("numero_actuel")).ToHashSet();

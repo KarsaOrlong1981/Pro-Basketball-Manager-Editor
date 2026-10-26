@@ -34,6 +34,7 @@ public interface IWorkspacePart
 public static class Dialogs
 {
     public static void Error(string msg) => MessageBox.Show(msg, "PBM Editor", MessageBoxButton.OK, MessageBoxImage.Warning);
+    public static void Info(string msg) => MessageBox.Show(msg, "PBM Editor", MessageBoxButton.OK, MessageBoxImage.Information);
     public static bool Confirm(string msg) =>
         MessageBox.Show(msg, "PBM Editor", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
 }
@@ -308,12 +309,10 @@ public static class JerseyKit
     {
         get
         {
-            foreach (var root in new[] { @"C:\Program Files (x86)\Steam", @"C:\Program Files\Steam" })
-            {
-                var d = Path.Combine(root, "steamapps", "common", "Pro Basketball Manager 2025", "PBM2025_Data", "images", "decor", "jerseys");
-                if (File.Exists(Path.Combine(d, "jersey_0.png"))) return d;
-            }
-            return null;
+            var game = ModCreator.FindGameDir();
+            if (game == null) return null;
+            var d = Path.Combine(game, "PBM2025_Data", "images", "decor", "jerseys");
+            return File.Exists(Path.Combine(d, "jersey_0.png")) ? d : null;
         }
     }
 

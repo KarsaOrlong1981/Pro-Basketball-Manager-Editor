@@ -68,6 +68,34 @@ public class RealDbSmokeTests
     }
 
     [Fact]
+    public void NewPlayers_LoadInTheEditorsAndRollBack()
+    {
+        using var db = OpenReal(out _);
+        if (db == null) return;
+        var before = Convert.ToInt64(db.Scalar("SELECT COUNT(*) FROM DYN_joueur"));
+        var template = new NewPlayer("Test", "Player", 1, 6, 2003, false, 2, 200, 95, PlayerPosition.PowerForward, 10.0, 15, 50, 12, 1, 0);
+
+        var free = PlayerCreator.Create(db, template);
+        var signed = PlayerCreator.Create(db, template with { TeamId = 85, Salary = PlayerCreator.SuggestSalary(10.0), ContractYears = 3 });
+
+        Assert.Contains(GameService.FreeAgents(db), p => p.Id == free);
+        var onTeam = GameService.PlayersOfTeam(db, 85).Single(p => p.Id == signed);
+        Assert.True(onTeam.Salary > 0);
+        foreach (var id in new[] { free, signed })
+        {
+            Assert.True(new RowEditor(db, "DYN_joueur", "joueur_id", id, FieldConfigs.Player()).Exists);
+            Assert.True(new RowEditor(db, "DYN_joueur_attributes", "joueur_id", id, FieldConfigs.Attributes()).Exists);
+        }
+        var cid = GameService.ActiveContractId(db, signed, 85);
+        Assert.NotNull(cid);
+        Assert.True(new RowEditor(db, "DYN_contrat", "id", cid!.Value, FieldConfigs.Contract()).Exists);
+        Assert.Null(GameService.ActiveContractId(db, free, 0));
+
+        db.Rollback();
+        Assert.Equal(before, Convert.ToInt64(db.Scalar("SELECT COUNT(*) FROM DYN_joueur")));
+    }
+
+    [Fact]
     public void RoundTripEditAndRollback_LeavesDatabaseUntouched()
     {
         using var db = OpenReal(out _);

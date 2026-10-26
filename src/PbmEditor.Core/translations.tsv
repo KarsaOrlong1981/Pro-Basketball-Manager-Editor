@@ -528,3 +528,44 @@ Patience	Geduld	Patience
 Diplomacy	Diplomatie	Diplomatie
 Offensive cohesion	Offensive Kohäsion	Cohésion offensive
 Defensive cohesion	Defensive Kohäsion	Cohésion défensive
+New player	Neuer Spieler	Nouveau joueur
+New player...	Neuer Spieler...	Nouveau joueur...
+Create a new player (free agent or for a team)	Neuen Spieler anlegen (Free Agent oder für ein Team)	Créer un nouveau joueur (agent libre ou pour une équipe)
+Point guard	Point Guard	Meneur
+Shooting guard	Shooting Guard	Arrière
+Wing	Flügelspieler	Ailier
+Power forward	Power Forward	Ailier fort
+Center	Center	Pivot
+Team and contract	Team und Vertrag	Équipe et contrat
+First name:	Vorname:	Prénom :
+Last name:	Nachname:	Nom :
+Gender:	Geschlecht:	Sexe :
+Nationality:	Nationalität:	Nationalité :
+Birth date (day, month, year):	Geburtsdatum (Tag, Monat, Jahr):	Date de naissance (jour, mois, année) :
+Height (cm) / weight (kg):	Größe (cm) / Gewicht (kg):	Taille (cm) / poids (kg) :
+Main position:	Hauptposition:	Poste principal :
+Overall rating (attributes are derived from it):	Gesamtwertung (die Attribute werden daraus abgeleitet):	Note globale (les attributs en sont dérivés) :
+Potential (hidden, 0-20):	Potenzial (versteckt, 0-20):	Potentiel (caché, 0-20) :
+Skin colour:	Hautfarbe:	Couleur de peau :
+Hairstyle:	Frisur:	Coiffure :
+Hair colour:	Haarfarbe:	Couleur des cheveux :
+Beard:	Bart:	Barbe :
+Jersey number (empty = next free):	Trikotnummer (leer = nächste freie):	Numéro de maillot (vide = prochain libre) :
+Monthly salary:	Monatsgehalt:	Salaire mensuel :
+Contract length (years):	Vertragslänge (Jahre):	Durée du contrat (années) :
+The 26 attributes are generated from the overall rating and position. Fine-tune them, the photo and the contract in the editor after creating.	Die 26 Attribute werden aus Gesamtwertung und Position erzeugt. Attribute, Foto und Vertrag lassen sich nach dem Anlegen im Editor feinjustieren.	Les 26 attributs sont générés à partir de la note globale et du poste. Ajustez-les, ainsi que la photo et le contrat, dans l'éditeur après la création.
+Please enter a first and a last name.	Bitte Vor- und Nachnamen eingeben.	Veuillez saisir un prénom et un nom.
+The birth date is not a valid date.	Das Geburtsdatum ist kein gültiges Datum.	La date de naissance n'est pas une date valide.
+Height must be between 120 and 260 cm.	Die Größe muss zwischen 120 und 260 cm liegen.	La taille doit être comprise entre 120 et 260 cm.
+Weight must be between 40 and 250 kg.	Das Gewicht muss zwischen 40 und 250 kg liegen.	Le poids doit être compris entre 40 et 250 kg.
+The salary cannot be negative.	Das Gehalt darf nicht negativ sein.	Le salaire ne peut pas être négatif.
+The contract length must be between 1 and 10 years.	Die Vertragslänge muss zwischen 1 und 10 Jahren liegen.	La durée du contrat doit être comprise entre 1 et 10 ans.
+Please enter whole numbers for date, height, weight and contract length.	Bitte ganze Zahlen für Datum, Größe, Gewicht und Vertragslänge eingeben.	Veuillez saisir des nombres entiers pour la date, la taille, le poids et la durée du contrat.
+Overall and potential must be numbers between 1 and 20 (potential 0-20).	Gesamtwertung und Potenzial müssen Zahlen zwischen 1 und 20 sein (Potenzial 0-20).	La note globale et le potentiel doivent être des nombres entre 1 et 20 (potentiel 0-20).
+The salary must be a whole number.	Das Gehalt muss eine ganze Zahl sein.	Le salaire doit être un nombre entier.
+The jersey number must be a whole number.	Die Trikotnummer muss eine ganze Zahl sein.	Le numéro de maillot doit être un nombre entier.
+The player could not be created: {0}	Der Spieler konnte nicht angelegt werden: {0}	Le joueur n'a pas pu être créé : {0}
+The player was created as free agent. Find them in the 'Free agents' tab.	Der Spieler wurde als Free Agent angelegt. Du findest ihn im Tab 'Free Agents'.	Le joueur a été créé comme agent libre. Vous le trouverez dans l'onglet 'Agents libres'.
+The player was created for the team. Find them in the 'Teams and players' tab.	Der Spieler wurde für das Team angelegt. Du findest ihn im Tab 'Teams und Spieler'.	Le joueur a été créé pour l'équipe. Vous le trouverez dans l'onglet 'Équipes et joueurs'.
+{0}: new player created as free agent (ID {1})	{0}: neuer Spieler als Free Agent angelegt (ID {1})	{0} : nouveau joueur créé comme agent libre (ID {1})
+{0}: new player created for {1} (#{2}, ID {3})	{0}: neuer Spieler für {1} angelegt (#{2}, ID {3})	{0} : nouveau joueur créé pour {1} (n°{2}, ID {3})

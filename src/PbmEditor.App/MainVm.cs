@@ -249,8 +249,8 @@ public sealed class MainVm : ObservableObject
                 Images.Root = root ?? entry?.ImageRoot;
                 BusyText = Loc.T("Loading teams, players and leagues...");
                 await YieldToUi();
-                Teams = new TeamsVm(_db, Images);
-                FreeAgents = new FreeAgentsVm(_db, Images);
+                Teams = new TeamsVm(_db, Images) { FreeAgentCreated = () => FreeAgents?.Reload() };
+                FreeAgents = new FreeAgentsVm(_db, Images) { TeamPlayerCreated = ReloadTeams };
                 Leagues = new LeaguesVm(_db, Images);
                 Raw = _rawUnlocked ? new RawVm(_db) : null;
                 Status = Loc.F("{0}  |  {1}  |  images: {2}", path, version, Images.Root ?? Loc.T("none (no image folder found)"));
@@ -264,6 +264,14 @@ public sealed class MainVm : ObservableObject
             RaiseAll();
         });
         return ok;
+    }
+
+    /// <summary>Refreshes the team view after a player was created elsewhere (pending edits are written first).</summary>
+    void ReloadTeams()
+    {
+        try { Teams?.Flush(); }
+        catch (FormatException e) { Dialogs.Error(e.Message); return; }
+        Teams?.Reload();
     }
 
     void ApplyCheat()
