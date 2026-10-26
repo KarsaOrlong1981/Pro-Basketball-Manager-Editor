@@ -1,4 +1,5 @@
 using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,12 +12,15 @@ public sealed class NewLeagueDialog : Window
 {
     readonly PbmDatabase _db;
     readonly TextBox _name = new(), _abbr = new(), _division = new() { Text = "4" }, _reputation = new() { Text = "20" }, _teams = new() { Text = "14" };
-    readonly TextBox _promoted = new() { Text = "4" }, _relegated = new() { Text = "2" }, _level = new(), _roster = new() { Text = "13" };
+    readonly TextBox _promoted = new() { Text = "4" }, _relegated = new() { Text = "0" }, _level = new(), _roster = new() { Text = "13" };
     readonly TextBox _names = new() { AcceptsReturn = true, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, Height = 90, MinWidth = 260 };
-    readonly ComboBox _country = Combo(), _template = Combo(), _promoteTo = Combo();
+    readonly ComboBox _country = Combo(), _template = Combo(), _promoteTo = Combo(), _promotion = Combo();
+    readonly TextBlock _groupInfo = new() { Foreground = System.Windows.Media.Brushes.Gray, TextWrapping = TextWrapping.Wrap, MaxWidth = 300 };
     readonly TextBlock _error = new() { Foreground = System.Windows.Media.Brushes.Firebrick, TextWrapping = TextWrapping.Wrap, MinHeight = 34, MaxWidth = 560 };
     readonly Button _ok = new() { IsDefault = true, MinWidth = 80, Margin = new Thickness(3), IsEnabled = false };
     readonly int _seed = Environment.TickCount & 0x7fffffff;
+    readonly TextBlock _importInfo = new() { Foreground = System.Windows.Media.Brushes.Gray, TextWrapping = TextWrapping.Wrap, MaxWidth = 300, VerticalAlignment = VerticalAlignment.Center };
+    List<TeamEntry>? _entries;
     bool _levelTouched;
 
     public NewLeague? Result { get; private set; }
@@ -66,6 +70,12 @@ public sealed class NewLeagueDialog : Window
         Fill(_country, GameService.CountryChoices(db), selected?.Country ?? 0);
         Fill(_template, leagues, selected?.Id ?? 15);
         Fill(_promoteTo, GameService.LeagueChoicesWithNone(db), selected?.Id ?? 0);
+        Fill(_promotion, new[]
+        {
+            new Choice((long)PromotionMode.FinalRanking, Loc.T("Final ranking: best teams of the league")),
+            new Choice((long)PromotionMode.GroupWinners, Loc.T("Group winners: best teams of every group")),
+        }, (long)PromotionMode.FinalRanking);
+        UpdateGroupInfo(applyDefaults: false);
         SuggestLevel();
 
         var grid = new Grid { Margin = new Thickness(14) };
@@ -102,15 +112,23 @@ public sealed class NewLeagueDialog : Window
         Add("Country:", _country);
         Add("Division level (1 = top):", Line(_division));
         Add("Reputation (0-100):", Line(_reputation));
-        Add("Copy structure from (single group):", _template);
+        Add("Copy structure from:", _template);
+        Add("Groups of the template:", _groupInfo);
         Header("Teams");
-        Add("Number of teams (even):", Line(_teams));
+        Add("Teams per group (even):", Line(_teams));
         Add("Players per team (10-13):", Line(_roster));
         Add("Team strength (average of the ten best):", Line(_level));
         Add("Team names (one per line, empty = generated):", _names);
+        var importButton = new Button { Content = Loc.T("Import team list...") };
+        importButton.Click += (_, _) => ImportList();
+        var clearButton = new Button { Content = Loc.T("Clear") };
+        clearButton.Click += (_, _) => { _entries = null; _names.IsEnabled = true; _importInfo.Text = ""; Validate(); };
+        Add("Team list (CSV):", new StackPanel { Children = { new StackPanel { Orientation = Orientation.Horizontal, Children = { importButton, clearButton } }, _importInfo } });
+        Add("", new TextBlock { Text = Loc.T("Optional: add ;2 after a name to put that team into group 2."), Foreground = System.Windows.Media.Brushes.Gray, MaxWidth = 300, TextWrapping = TextWrapping.Wrap });
         Header("Promotion and relegation");
         Add("Promoted teams move up to:", _promoteTo);
-        Add("Teams promoted / relegated:", Line(_promoted, _relegated));
+        Add("How the promoted teams are chosen:", _promotion);
+        Add("Promoted (per league or group) / relegated per group:", Line(_promoted, _relegated));
 
         _ok.Content = Loc.T("Create");
         _ok.Click += (_, _) => { Result = Read(out _); DialogResult = true; };
@@ -135,8 +153,51 @@ public sealed class NewLeagueDialog : Window
             tb.TextChanged += (_, _) => Validate();
         _level.TextChanged += (_, _) => { if (_level.IsKeyboardFocusWithin) _levelTouched = true; Validate(); };
         _promoteTo.SelectionChanged += (_, _) => { SuggestLevel(); Validate(); };
-        foreach (var c in new[] { _country, _template }) c.SelectionChanged += (_, _) => Validate();
+        _template.SelectionChanged += (_, _) => { UpdateGroupInfo(applyDefaults: true); SuggestLevel(); Validate(); };
+        _promotion.SelectionChanged += (_, _) => Validate();
+        _country.SelectionChanged += (_, _) => Validate();
         Loaded += (_, _) => { _name.Focus(); Validate(); };
+    }
+
+    /// <summary>Reads a CSV team list. Its group labels become groups 1, 2, 3 ... in order of appearance; the list replaces the name box.</summary>
+    void ImportList()
+    {
+        var dlg = new Microsoft.Win32.OpenFileDialog
+        {
+            Title = Loc.T("Open team list"),
+            Filter = Loc.T("Team list") + " (*.csv;*.txt)|*.csv;*.txt|" + Loc.T("All files") + "|*.*",
+        };
+        if (dlg.ShowDialog(this) != true) return;
+        try
+        {
+            var list = TeamListImporter.Parse(File.ReadAllText(dlg.FileName));
+            _entries = list.Entries.ToList();
+            _names.IsEnabled = false;
+            var groups = _template.SelectedValue is long t ? LeagueCreator.GroupsOf(_db, t) : 1;
+            var biggest = _entries.Where(e => e.Group != null).GroupBy(e => e.Group).Select(g => g.Count()).DefaultIfEmpty(0).Max();
+            var needed = Math.Max(biggest, (int)Math.Ceiling(_entries.Count / (double)groups));
+            if (Int(_teams, out var current) && needed > current) _teams.Text = (needed + needed % 2).ToString(CultureInfo.InvariantCulture);
+            var labels = list.GroupLabels.Select((l, i) => $"{l} = {i + 1}");
+            _importInfo.Text = list.GroupLabels.Count == 0
+                ? Loc.F("{0} teams", _entries.Count)
+                : Loc.F("{0} teams; groups: {1}", _entries.Count, string.Join(", ", labels));
+            if (list.Warnings.Count > 0) Dialogs.Info(string.Join("\n", list.Warnings));
+        }
+        catch (Exception e) when (e is FormatException or IOException or UnauthorizedAccessException)
+        {
+            Dialogs.Error(Loc.F("The team list could not be read: {0}", e.Message));
+        }
+        Validate();
+    }
+
+    /// <summary>Shows how many groups the template has. A template with several groups promotes the winner of every group by default.</summary>
+    void UpdateGroupInfo(bool applyDefaults)
+    {
+        var groups = _template.SelectedValue is long t ? LeagueCreator.GroupsOf(_db, t) : 1;
+        _groupInfo.Text = groups == 1 ? Loc.T("1 (single table)") : Loc.F("{0} groups; the number of teams is teams per group x {0}", groups);
+        if (!applyDefaults) return;
+        _promotion.SelectedValue = (long)(groups > 1 ? PromotionMode.GroupWinners : PromotionMode.FinalRanking);
+        _promoted.Text = groups > 1 ? "1" : "4";
     }
 
     /// <summary>A lower division is weaker than the league above it: default to its level minus one.</summary>
@@ -159,8 +220,9 @@ public sealed class NewLeagueDialog : Window
         { error = Loc.T("The team strength must be a number between 4 and 16."); return null; }
         long Sel(ComboBox c) => c.SelectedValue is long v ? v : 0;
         var names = _names.Text.Split('\n', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-        return new NewLeague(_name.Text, _abbr.Text, Sel(_country), Sel(_template), division, reputation, teams, Sel(_promoteTo), promoted, relegated,
-            level, _seed, names, roster);
+        return new NewLeague(_name.Text, _abbr.Text, Sel(_country), Sel(_template), division, reputation, teams, Sel(_promoteTo),
+            Sel(_promotion) == (long)PromotionMode.GroupWinners ? PromotionMode.GroupWinners : PromotionMode.FinalRanking, promoted, relegated,
+            level, _seed, names, roster, Teams: _entries);
     }
 
     void Validate()

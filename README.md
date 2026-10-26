@@ -21,7 +21,7 @@ Unofficial fan tool, not affiliated with Umix Studios. Always work on a mod or a
 - **Free agents**: search, edit and sign for a team.
 - **Leagues and cups**: names and settings, rules, team assignment, phases, forced and qualified teams, brackets, match days, prize money, quotas, promotion and relegation, objectives, divisions.
 - **Jerseys**: preview of the game's default kit (front and back) from the team colours, one-click generation, combine a front and a back photo into one image, or remove the file to fall back to the default.
-- **New league (prototype)**: creates a league with clubs, rosters and staff by copying the structure of a single-group league (for example German League 2). Promotion and relegation counts and the target league are set in the dialog. Not verified in the game yet.
+- **New league (prototype)**: creates a league with clubs, rosters and staff by copying the structure of a template league (for example German League 2 for a single table, French League 4 for four groups). Teams per group, promotion (final ranking or the best of every group) and relegation per group are set in the dialog; the groups of the first season are assigned by region from the clubs' cities, or pinned with `Team name;2`. A CSV team list (columns Team, Group, City, Latitude, Longitude; German headers work too) can be imported; clubs with coordinates are placed in the nearest city the game knows. Not verified in the game for several groups yet.
 - **Languages**: English (default), German and French, switchable at runtime.
 
 ## Safety
@@ -79,7 +79,7 @@ The English text is the key. Translations are in `src/PbmEditor.Core/translation
 
 ## Known limitations
 
-- New leagues are cloned from a single-group league without objectives, brackets or forced teams; two-group leagues and cups cannot be used as a template yet. Clubs have no youth team and no logo, and the league is not added to cup quotas.
+- New leagues are cloned from a league without equal-ranking tables, divisions, cups or timed breaks. The number of groups is the template's (single table, 2 groups, 4 groups); ten or more groups are untested in the game. Groups need equal sizes. Clubs have no youth team and no logo, and the league is not added to cup quotas. Objectives and non-relegable teams of the template are not copied.
 - How the game renders appearance values (skin, hair, beard) and custom jersey images is only partly verified.
 - The season cost estimate "13 x monthly payroll" in the finance line is an unverified assumption.
 - New players: attributes, market value and salary are estimates fitted on the default database. A new player has no statistics history, and how the game reacts to players added this way is not verified in the game yet.

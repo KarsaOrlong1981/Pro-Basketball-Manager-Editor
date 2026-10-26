@@ -610,3 +610,34 @@ The team strength must be a number between 4 and 16.	Die Teamstärke muss eine Z
 The league was created with {0} teams. Find the teams in the 'Teams and players' tab.	Die Liga wurde mit {0} Teams angelegt. Du findest die Teams im Tab 'Teams und Spieler'.	La ligue a été créée avec {0} équipes. Vous les trouverez dans l'onglet 'Équipes et joueurs'.
 {0}: relegated teams now move down to {1}	{0}: Absteiger wechseln jetzt in {1}	{0} : les équipes reléguées descendent désormais en {1}
 {0} already sends its relegated teams to another league. Check its relegation rows.	{0} schickt seine Absteiger bereits in eine andere Liga. Prüfe die Abstiegszeilen.	{0} envoie déjà ses équipes reléguées vers une autre ligue. Vérifiez les lignes de relégation.
+The template league has no phases.	Die Vorlagen-Liga hat keine Phasen.	La ligue modèle n'a aucune phase.
+The number of teams per group must be even and between 4 and 30.	Die Teamanzahl pro Gruppe muss gerade sein und zwischen 4 und 30 liegen.	Le nombre d'équipes par groupe doit être pair et compris entre 4 et 30.
+The groups have too few teams for the template's playoffs.	Die Gruppen haben zu wenige Teams für die Playoffs der Vorlage.	Les groupes ont trop peu d'équipes pour les playoffs du modèle.
+Promoted and relegated teams cannot exceed half of a group.	Auf- und Absteiger dürfen nicht mehr als die Hälfte einer Gruppe sein.	Les équipes promues et reléguées ne peuvent pas dépasser la moitié d'un groupe.
+Group numbers must be between 1 and {0}.	Gruppennummern müssen zwischen 1 und {0} liegen.	Les numéros de groupe doivent être compris entre 1 et {0}.
+A group has more named teams than places.	Eine Gruppe hat mehr benannte Teams als Plätze.	Un groupe a plus d'équipes nommées que de places.
+The country has no cities with coordinates. Pick another country.	Das Land hat keine Städte mit Koordinaten. Wähle ein anderes Land.	Le pays n'a aucune ville avec coordonnées. Choisissez un autre pays.
+Final ranking: best teams of the league	Endplatzierung: die besten Teams der Liga	Classement final : les meilleures équipes de la ligue
+Group winners: best teams of every group	Gruppensieger: die besten Teams jeder Gruppe	Vainqueurs de groupe : les meilleures équipes de chaque groupe
+Copy structure from:	Struktur kopieren von:	Copier la structure de :
+Groups of the template:	Gruppen der Vorlage:	Groupes du modèle :
+Teams per group (even):	Teams pro Gruppe (gerade):	Équipes par groupe (pair) :
+Optional: add ;2 after a name to put that team into group 2.	Optional: ;2 hinter einen Namen schreiben, um das Team in Gruppe 2 zu setzen.	Facultatif : ajoutez ;2 après un nom pour placer l'équipe dans le groupe 2.
+How the promoted teams are chosen:	So werden die Aufsteiger bestimmt:	Choix des équipes promues :
+Promoted (per league or group) / relegated per group:	Aufsteiger (pro Liga oder Gruppe) / Absteiger pro Gruppe:	Promues (par ligue ou groupe) / reléguées par groupe :
+1 (single table)	1 (eine Tabelle)	1 (un seul classement)
+{0} groups; the number of teams is teams per group x {0}	{0} Gruppen; die Teamanzahl ist Teams pro Gruppe x {0}	{0} groupes ; le nombre d'équipes est équipes par groupe x {0}
+The team list is empty.	Die Teamliste ist leer.	La liste d'équipes est vide.
+The team list needs a header row with a 'Team' column.	Die Teamliste braucht eine Kopfzeile mit einer Spalte 'Team'.	La liste d'équipes nécessite une ligne d'en-tête avec une colonne 'Team'.
+Line {0}: the team name is missing.	Zeile {0}: Der Teamname fehlt.	Ligne {0} : le nom de l'équipe est manquant.
+Line {0}: the team name '{1}' appears more than once.	Zeile {0}: Der Teamname '{1}' kommt mehrfach vor.	Ligne {0} : le nom d'équipe '{1}' apparaît plusieurs fois.
+Line {0}: latitude and longitude must both be numbers (latitude -90 to 90, longitude -180 to 180).	Zeile {0}: Breiten- und Längengrad müssen beide Zahlen sein (Breite -90 bis 90, Länge -180 bis 180).	Ligne {0} : la latitude et la longitude doivent être des nombres (latitude -90 à 90, longitude -180 à 180).
+'{0}': no matching city found, placed in {1}. Give a city or coordinates in the list.	'{0}': Keine passende Stadt gefunden, gesetzt in {1}. Gib in der Liste eine Stadt oder Koordinaten an.	'{0}' : aucune ville correspondante trouvée, placée à {1}. Indiquez une ville ou des coordonnées dans la liste.
+Import team list...	Teamliste importieren...	Importer la liste d'équipes...
+Clear	Leeren	Effacer
+Team list (CSV):	Teamliste (CSV):	Liste d'équipes (CSV) :
+Open team list	Teamliste öffnen	Ouvrir la liste d'équipes
+Team list	Teamliste	Liste d'équipes
+{0} teams	{0} Teams	{0} équipes
+{0} teams; groups: {1}	{0} Teams; Gruppen: {1}	{0} équipes ; groupes : {1}
+The team list could not be read: {0}	Die Teamliste konnte nicht gelesen werden: {0}	La liste d'équipes n'a pas pu être lue : {0}
