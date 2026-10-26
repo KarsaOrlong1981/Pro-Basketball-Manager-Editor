@@ -641,3 +641,5 @@ Team list	Teamliste	Liste d'équipes
 {0} teams	{0} Teams	{0} équipes
 {0} teams; groups: {1}	{0} Teams; Gruppen: {1}	{0} équipes ; groupes : {1}
 The team list could not be read: {0}	Die Teamliste konnte nicht gelesen werden: {0}	La liste d'équipes n'a pas pu être lue : {0}
+The list is sized for the chosen template. Pick the template and the settings above first.	Die Liste wird für die gewählte Vorlage berechnet. Wähle zuerst die Vorlage und die Einstellungen oben.	La liste est dimensionnée pour le modèle choisi. Choisissez d'abord le modèle et les réglages ci-dessus.
+Fill in the name, the abbreviation and the other settings above first. Then the list can be imported.	Fülle zuerst Name, Kürzel und die übrigen Einstellungen oben aus. Danach kann die Liste importiert werden.	Renseignez d'abord le nom, l'abréviation et les autres réglages ci-dessus. Ensuite, la liste peut être importée.

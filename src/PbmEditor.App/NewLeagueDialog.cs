@@ -20,6 +20,8 @@ public sealed class NewLeagueDialog : Window
     readonly Button _ok = new() { IsDefault = true, MinWidth = 80, Margin = new Thickness(3), IsEnabled = false };
     readonly int _seed = Environment.TickCount & 0x7fffffff;
     readonly TextBlock _importInfo = new() { Foreground = System.Windows.Media.Brushes.Gray, TextWrapping = TextWrapping.Wrap, MaxWidth = 300, VerticalAlignment = VerticalAlignment.Center };
+    readonly Button _importButton = new() { IsEnabled = false };
+    readonly TextBlock _importHint = new() { Foreground = System.Windows.Media.Brushes.Gray, TextWrapping = TextWrapping.Wrap, MaxWidth = 300, Margin = new Thickness(3, 0, 3, 0) };
     List<TeamEntry>? _entries;
     bool _levelTouched;
 
@@ -119,11 +121,11 @@ public sealed class NewLeagueDialog : Window
         Add("Players per team (10-13):", Line(_roster));
         Add("Team strength (average of the ten best):", Line(_level));
         Add("Team names (one per line, empty = generated):", _names);
-        var importButton = new Button { Content = Loc.T("Import team list...") };
-        importButton.Click += (_, _) => ImportList();
+        _importButton.Content = Loc.T("Import team list...");
+        _importButton.Click += (_, _) => ImportList();
         var clearButton = new Button { Content = Loc.T("Clear") };
         clearButton.Click += (_, _) => { _entries = null; _names.IsEnabled = true; _importInfo.Text = ""; Validate(); };
-        Add("Team list (CSV):", new StackPanel { Children = { new StackPanel { Orientation = Orientation.Horizontal, Children = { importButton, clearButton } }, _importInfo } });
+        Add("Team list (CSV):", new StackPanel { Children = { new StackPanel { Orientation = Orientation.Horizontal, Children = { _importButton, clearButton } }, _importHint, _importInfo } });
         Add("", new TextBlock { Text = Loc.T("Optional: add ;2 after a name to put that team into group 2."), Foreground = System.Windows.Media.Brushes.Gray, MaxWidth = 300, TextWrapping = TextWrapping.Wrap });
         Header("Promotion and relegation");
         Add("Promoted teams move up to:", _promoteTo);
@@ -153,7 +155,7 @@ public sealed class NewLeagueDialog : Window
             tb.TextChanged += (_, _) => Validate();
         _level.TextChanged += (_, _) => { if (_level.IsKeyboardFocusWithin) _levelTouched = true; Validate(); };
         _promoteTo.SelectionChanged += (_, _) => { SuggestLevel(); Validate(); };
-        _template.SelectionChanged += (_, _) => { UpdateGroupInfo(applyDefaults: true); SuggestLevel(); Validate(); };
+        _template.SelectionChanged += (_, _) => { UpdateGroupInfo(applyDefaults: true); SizeForImport(); SuggestLevel(); Validate(); };
         _promotion.SelectionChanged += (_, _) => Validate();
         _country.SelectionChanged += (_, _) => Validate();
         Loaded += (_, _) => { _name.Focus(); Validate(); };
@@ -173,10 +175,7 @@ public sealed class NewLeagueDialog : Window
             var list = TeamListImporter.Parse(File.ReadAllText(dlg.FileName));
             _entries = list.Entries.ToList();
             _names.IsEnabled = false;
-            var groups = _template.SelectedValue is long t ? LeagueCreator.GroupsOf(_db, t) : 1;
-            var biggest = _entries.Where(e => e.Group != null).GroupBy(e => e.Group).Select(g => g.Count()).DefaultIfEmpty(0).Max();
-            var needed = Math.Max(biggest, (int)Math.Ceiling(_entries.Count / (double)groups));
-            if (Int(_teams, out var current) && needed > current) _teams.Text = (needed + needed % 2).ToString(CultureInfo.InvariantCulture);
+            SizeForImport();
             var labels = list.GroupLabels.Select((l, i) => $"{l} = {i + 1}");
             _importInfo.Text = list.GroupLabels.Count == 0
                 ? Loc.F("{0} teams", _entries.Count)
@@ -188,6 +187,16 @@ public sealed class NewLeagueDialog : Window
             Dialogs.Error(Loc.F("The team list could not be read: {0}", e.Message));
         }
         Validate();
+    }
+
+    /// <summary>Teams per group for an imported list: the biggest named group, or the list spread over the template's groups, rounded up to an even number.</summary>
+    void SizeForImport()
+    {
+        if (_entries == null) return;
+        var groups = _template.SelectedValue is long t ? LeagueCreator.GroupsOf(_db, t) : 1;
+        var biggest = _entries.Where(e => e.Group != null).GroupBy(e => e.Group).Select(g => g.Count()).DefaultIfEmpty(0).Max();
+        var needed = Math.Max(biggest, (int)Math.Ceiling(_entries.Count / (double)groups));
+        _teams.Text = Math.Max(4, needed + needed % 2).ToString(CultureInfo.InvariantCulture);
     }
 
     /// <summary>Shows how many groups the template has. A template with several groups promotes the winner of every group by default.</summary>
@@ -231,5 +240,13 @@ public sealed class NewLeagueDialog : Window
         if (l != null) msg = LeagueCreator.Validate(_db, l);
         _error.Text = msg ?? "";
         _ok.IsEnabled = msg == null;
+
+        // the list is sized for the chosen template and settings, so it can only be imported once they are valid
+        var withoutList = l == null ? msg : LeagueCreator.Validate(_db, l with { Teams = null, TeamNames = null });
+        _importButton.IsEnabled = withoutList == null;
+        _importButton.ToolTip = withoutList;
+        _importHint.Text = withoutList == null
+            ? Loc.T("The list is sized for the chosen template. Pick the template and the settings above first.")
+            : Loc.T("Fill in the name, the abbreviation and the other settings above first. Then the list can be imported.");
     }
 }
