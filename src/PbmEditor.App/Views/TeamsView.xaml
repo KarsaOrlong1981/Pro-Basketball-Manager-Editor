@@ -45,7 +45,7 @@
       </TabItem>
       <TabItem Header="{loc:T 'Players'}">
         <DockPanel>
-        <Button DockPanel.Dock="Top" Content="{loc:T 'New player...'}" Command="{Binding NewPlayerCommand}" HorizontalAlignment="Left"
+        <Button Style="{StaticResource NewButton}" DockPanel.Dock="Top" Content="{loc:T 'New player...'}" Command="{Binding NewPlayerCommand}" HorizontalAlignment="Left"
                 ToolTip="{loc:T 'Create a new player (free agent or for a team)'}"/>
         <Grid>
           <Grid.ColumnDefinitions><ColumnDefinition Width="330"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>

@@ -14,7 +14,7 @@
       <TextBlock Text="{loc:T 'Mod / save:'}" Margin="4,0"/>
       <ComboBox Grid.Column="1" ItemsSource="{Binding Mods}" SelectedItem="{Binding SelectedMod}"/>
       <StackPanel Grid.Column="2" Orientation="Horizontal">
-        <Button Content="{loc:T 'New mod...'}" Command="{Binding NewModCommand}" ToolTip="{loc:T 'Create a new mod from the default game data'}"/>
+        <Button Style="{StaticResource NewButton}" Content="{loc:T 'New mod...'}" Command="{Binding NewModCommand}" ToolTip="{loc:T 'Create a new mod from the default game data'}"/>
         <Button Content="{loc:T 'Open file...'}" Command="{Binding BrowseCommand}"/>
         <Button Content="{loc:T 'Rescan'}" Command="{Binding RefreshModsCommand}"/>
       </StackPanel>
@@ -24,7 +24,7 @@
         <ComboBox ItemsSource="{Binding Languages}" DisplayMemberPath="Name" SelectedValuePath="Code" SelectedValue="{Binding LanguageCode}" MinWidth="95"/>
         <Button Content="{loc:T 'Show changes'}" Command="{Binding ShowChangesCommand}"/>
         <Button Content="{loc:T 'Discard'}" Command="{Binding DiscardCommand}"/>
-        <Button Content="{loc:T 'Save'}" Command="{Binding SaveCommand}" FontWeight="Bold"/>
+        <Button Style="{StaticResource SaveButton}" Content="{loc:T 'Save'}" Command="{Binding SaveCommand}" FontWeight="Bold"/>
       </StackPanel>
     </Grid>
     <StatusBar DockPanel.Dock="Bottom">

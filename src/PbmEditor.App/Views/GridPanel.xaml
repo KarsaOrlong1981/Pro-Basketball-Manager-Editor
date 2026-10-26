@@ -5,7 +5,7 @@
   <DockPanel>
     <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
       <Button Content="{loc:T 'Add row'}" Click="Add_Click"/>
-      <Button Content="{loc:T 'Delete selected rows'}" Click="Delete_Click"/>
+      <Button Style="{StaticResource DeleteButton}" Content="{loc:T 'Delete selected rows'}" Click="Delete_Click"/>
       <TextBlock x:Name="Info" Margin="8,0" Foreground="Gray"/>
     </StackPanel>
     <DataGrid x:Name="Grid" AutoGenerateColumns="True" AutoGeneratingColumn="Grid_AutoGeneratingColumn" CanUserAddRows="False" CanUserDeleteRows="False"

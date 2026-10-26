@@ -9,6 +9,32 @@
       <Setter Property="Padding" Value="10,3"/>
       <Setter Property="Margin" Value="3"/>
     </Style>
+    <!-- coloured action buttons: green = new, red = delete, steel blue = save. Own template so hover/pressed/disabled keep the colour -->
+    <ControlTemplate x:Key="ColorButtonTemplate" TargetType="Button">
+      <Border x:Name="bd" Background="{TemplateBinding Background}" CornerRadius="3" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="True">
+        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True"/>
+      </Border>
+      <ControlTemplate.Triggers>
+        <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="bd" Property="Opacity" Value="0.85"/></Trigger>
+        <Trigger Property="IsPressed" Value="True"><Setter TargetName="bd" Property="Opacity" Value="0.7"/></Trigger>
+        <Trigger Property="IsEnabled" Value="False"><Setter TargetName="bd" Property="Opacity" Value="0.45"/></Trigger>
+      </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="NewButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="#2E7D32"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Template" Value="{StaticResource ColorButtonTemplate}"/>
+    </Style>
+    <Style x:Key="DeleteButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="#C62828"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Template" Value="{StaticResource ColorButtonTemplate}"/>
+    </Style>
+    <Style x:Key="SaveButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+      <Setter Property="Background" Value="SteelBlue"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Template" Value="{StaticResource ColorButtonTemplate}"/>
+    </Style>
     <Style TargetType="ComboBox">
       <Setter Property="Margin" Value="3"/>
       <Setter Property="VerticalContentAlignment" Value="Center"/>
