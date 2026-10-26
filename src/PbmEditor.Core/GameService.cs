@@ -105,7 +105,7 @@ public static class GameService
     };
 
     /// <summary>Styles the game draws no hair for (3D bare head, 2D no hair); 0 and 16 are intentionally bald and stay.</summary>
-    static readonly HashSet<long> NoHairModel = new() { 1, 5, 15, 110 };
+    internal static readonly HashSet<long> NoHairModel = new() { 1, 5, 15, 110 };
 
     /// <summary>Hairstyles for one gender (STA_coiffures.sexe) without styles the game cannot show. A current value outside the list stays selectable, marked as unsuitable.</summary>
     public static IReadOnlyList<Choice> HairstyleChoicesFor(PbmDatabase db, bool female, long current)

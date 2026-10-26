@@ -569,3 +569,44 @@ The player was created as free agent. Find them in the 'Free agents' tab.	Der Sp
 The player was created for the team. Find them in the 'Teams and players' tab.	Der Spieler wurde für das Team angelegt. Du findest ihn im Tab 'Teams und Spieler'.	Le joueur a été créé pour l'équipe. Vous le trouverez dans l'onglet 'Équipes et joueurs'.
 {0}: new player created as free agent (ID {1})	{0}: neuer Spieler als Free Agent angelegt (ID {1})	{0} : nouveau joueur créé comme agent libre (ID {1})
 {0}: new player created for {1} (#{2}, ID {3})	{0}: neuer Spieler für {1} angelegt (#{2}, ID {3})	{0} : nouveau joueur créé pour {1} (n°{2}, ID {3})
+Table {0} not found.	Tabelle {0} nicht gefunden.	Table {0} introuvable.
+Template team not found.	Vorlagen-Team nicht gefunden.	Équipe modèle introuvable.
+League not found.	Liga nicht gefunden.	Ligue introuvable.
+{0}: new team created in {1} (ID {2})	{0}: neues Team in {1} angelegt (ID {2})	{0} : nouvelle équipe créée dans {1} (ID {2})
+Please enter a name and an abbreviation for the league.	Bitte Name und Kürzel der Liga eingeben.	Veuillez saisir un nom et une abréviation pour la ligue.
+The number of teams must be even and between 8 and 30.	Die Teamanzahl muss gerade sein und zwischen 8 und 30 liegen.	Le nombre d'équipes doit être pair et compris entre 8 et 30.
+Promoted and relegated teams cannot exceed half of the league.	Auf- und Absteiger dürfen nicht mehr als die Hälfte der Liga sein.	Les équipes promues et reléguées ne peuvent pas dépasser la moitié de la ligue.
+The roster size must be between {0} and {1}.	Die Kadergröße muss zwischen {0} und {1} liegen.	L'effectif doit être compris entre {0} et {1}.
+There are more team names than teams.	Es gibt mehr Teamnamen als Teams.	Il y a plus de noms d'équipes que d'équipes.
+Country not found.	Land nicht gefunden.	Pays introuvable.
+Choose the league the promoted teams move up to.	Wähle die Liga, in die die Aufsteiger wechseln.	Choisissez la ligue dans laquelle montent les équipes promues.
+Template league not found.	Vorlagen-Liga nicht gefunden.	Ligue modèle introuvable.
+The template league must have a single group in its first phase (for example German League 2).	Die Vorlagen-Liga braucht in der ersten Phase genau eine Gruppe (zum Beispiel German League 2).	La ligue modèle doit avoir un seul groupe dans sa première phase (par exemple German League 2).
+The template league has no teams to use as a model.	Die Vorlagen-Liga hat keine Teams, die als Muster dienen können.	La ligue modèle n'a aucune équipe servant de modèle.
+The league has too few teams for the template's playoffs.	Die Liga hat zu wenige Teams für die Playoffs der Vorlage.	La ligue a trop peu d'équipes pour les playoffs du modèle.
+The template league uses a feature that is not supported yet. Pick a simpler template league.	Die Vorlagen-Liga nutzt eine Funktion, die noch nicht unterstützt wird. Wähle eine einfachere Vorlage.	La ligue modèle utilise une fonction non prise en charge. Choisissez un modèle plus simple.
+{0}: new league created with {1} teams (ID {2})	{0}: neue Liga mit {1} Teams angelegt (ID {2})	{0} : nouvelle ligue créée avec {1} équipes (ID {2})
+The country has no cities. Pick another country.	Das Land hat keine Städte. Wähle ein anderes Land.	Le pays n'a aucune ville. Choisissez un autre pays.
+{0} relegates {1} team(s) but {2} team(s) are promoted into it. Adjust the numbers or the relegation rows so the league sizes stay constant.	{0} steigen {1} Team(s) ab, aber {2} Team(s) steigen in die Liga auf. Passe die Zahlen oder die Abstiegszeilen an, damit die Ligagrößen gleich bleiben.	{0} relègue {1} équipe(s), mais {2} équipe(s) y sont promues. Ajustez les nombres ou les lignes de relégation pour que la taille des ligues reste constante.
+The league could not be created: {0}	Die Liga konnte nicht angelegt werden: {0}	La ligue n'a pas pu être créée : {0}
+New league	Neue Liga	Nouvelle ligue
+New league...	Neue Liga...	Nouvelle ligue...
+Name:	Name:	Nom :
+Abbreviation:	Kürzel:	Abréviation :
+Country:	Land:	Pays :
+Division level (1 = top):	Spielklasse (1 = oberste):	Division (1 = la plus haute) :
+Reputation (0-100):	Ansehen (0-100):	Réputation (0-100) :
+Copy structure from (single group):	Struktur kopieren von (eine Gruppe):	Copier la structure de (un groupe) :
+Number of teams (even):	Anzahl Teams (gerade):	Nombre d'équipes (pair) :
+Players per team (10-13):	Spieler pro Team (10-13):	Joueurs par équipe (10-13) :
+Team strength (average of the ten best):	Teamstärke (Durchschnitt der zehn Besten):	Force des équipes (moyenne des dix meilleurs) :
+Team names (one per line, empty = generated):	Teamnamen (einer pro Zeile, leer = automatisch):	Noms des équipes (un par ligne, vide = généré) :
+Promotion and relegation	Auf- und Abstieg	Promotion et relégation
+Promoted teams move up to:	Aufsteiger wechseln in:	Les équipes promues montent en :
+Teams promoted / relegated:	Aufsteiger / Absteiger:	Équipes promues / reléguées :
+Creates the league with schedule rules, clubs, players and staff. Edit names, logos and players afterwards. Only new careers use the result.	Legt die Liga mit Spielplanregeln, Vereinen, Spielern und Staff an. Namen, Logos und Spieler kannst du danach bearbeiten. Nur neue Karrieren nutzen das Ergebnis.	Crée la ligue avec les règles de calendrier, clubs, joueurs et staff. Modifiez ensuite noms, logos et joueurs. Seules les nouvelles carrières utilisent le résultat.
+Please enter whole numbers for division, reputation, teams, promotion, relegation and players.	Bitte ganze Zahlen für Spielklasse, Ansehen, Teams, Aufstieg, Abstieg und Spieler eingeben.	Veuillez saisir des nombres entiers pour la division, la réputation, les équipes, la promotion, la relégation et les joueurs.
+The team strength must be a number between 4 and 16.	Die Teamstärke muss eine Zahl zwischen 4 und 16 sein.	La force des équipes doit être un nombre entre 4 et 16.
+The league was created with {0} teams. Find the teams in the 'Teams and players' tab.	Die Liga wurde mit {0} Teams angelegt. Du findest die Teams im Tab 'Teams und Spieler'.	La ligue a été créée avec {0} équipes. Vous les trouverez dans l'onglet 'Équipes et joueurs'.
+{0}: relegated teams now move down to {1}	{0}: Absteiger wechseln jetzt in {1}	{0} : les équipes reléguées descendent désormais en {1}
+{0} already sends its relegated teams to another league. Check its relegation rows.	{0} schickt seine Absteiger bereits in eine andere Liga. Prüfe die Abstiegszeilen.	{0} envoie déjà ses équipes reléguées vers une autre ligue. Vérifiez les lignes de relégation.

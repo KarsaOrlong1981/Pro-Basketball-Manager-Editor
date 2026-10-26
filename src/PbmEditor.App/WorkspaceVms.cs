@@ -407,6 +407,8 @@ public sealed class LeaguesVm : ObservableObject, IWorkspacePart
 
     public ICommand AddTeamCommand { get; }
     public ICommand MoveTeamCommand { get; }
+    public ICommand NewLeagueCommand { get; }
+    public Action? LeagueCreated { get; set; }
 
     public string Search { get => _search; set { if (Set(ref _search, value)) Competitions.Refresh(); } }
     public long TypeFilter { get => _typeFilter; set { if (Set(ref _typeFilter, value)) Competitions.Refresh(); } }
@@ -441,7 +443,20 @@ public sealed class LeaguesVm : ObservableObject, IWorkspacePart
         LogoSmall = new ImageSlot(store, "Logo (small)", "league_logos", "{0}_SMALL.png", ImageKind.Fit, 200, 200, 70);
         AddTeamCommand = new RelayCommand(() => AssignTeam(AddTeam), () => Selected != null && AddTeam != null);
         MoveTeamCommand = new RelayCommand(() => AssignTeam(SelectedTeam, MoveTo?.Id), () => SelectedTeam != null && MoveTo != null);
+        NewLeagueCommand = new RelayCommand(CreateLeague);
         Reload();
+    }
+
+    void CreateLeague()
+    {
+        if (!TryFlush()) return;
+        if (NewLeagueDialog.Run(_db, _selected) is not { } result) return;
+        Reload();
+        Selected = _all.FirstOrDefault(l => l.Id == result.LeagueId);
+        LeagueCreated?.Invoke();
+        var text = Loc.F("The league was created with {0} teams. Find the teams in the 'Teams and players' tab.", result.TeamIds.Count);
+        if (result.Warnings.Count > 0) text += "\n\n" + string.Join("\n", result.Warnings);
+        Dialogs.Info(text);
     }
 
     bool TryFlush()

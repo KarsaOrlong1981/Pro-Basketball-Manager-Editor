@@ -253,7 +253,7 @@ public sealed class MainVm : ObservableObject
                 await YieldToUi();
                 Teams = new TeamsVm(_db, Images) { FreeAgentCreated = () => FreeAgents?.Reload() };
                 FreeAgents = new FreeAgentsVm(_db, Images) { TeamPlayerCreated = ReloadTeams };
-                Leagues = new LeaguesVm(_db, Images);
+                Leagues = new LeaguesVm(_db, Images) { LeagueCreated = ReloadTeams };
                 Raw = _rawUnlocked ? new RawVm(_db) : null;
                 Status = Loc.F("{0}  |  {1}  |  images: {2}", path, version, Images.Root ?? Loc.T("none (no image folder found)"));
                 ok = true;

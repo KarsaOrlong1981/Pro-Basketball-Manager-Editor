@@ -21,6 +21,7 @@ Unofficial fan tool, not affiliated with Umix Studios. Always work on a mod or a
 - **Free agents**: search, edit and sign for a team.
 - **Leagues and cups**: names and settings, rules, team assignment, phases, forced and qualified teams, brackets, match days, prize money, quotas, promotion and relegation, objectives, divisions.
 - **Jerseys**: preview of the game's default kit (front and back) from the team colours, one-click generation, combine a front and a back photo into one image, or remove the file to fall back to the default.
+- **New league (prototype)**: creates a league with clubs, rosters and staff by copying the structure of a single-group league (for example German League 2). Promotion and relegation counts and the target league are set in the dialog. Not verified in the game yet.
 - **Languages**: English (default), German and French, switchable at runtime.
 
 ## Safety
@@ -78,7 +79,7 @@ The English text is the key. Translations are in `src/PbmEditor.Core/translation
 
 ## Known limitations
 
-- Creating a whole new competition from scratch is not supported yet. Edit existing ones, or add rows in the phase tables.
+- New leagues are cloned from a single-group league without objectives, brackets or forced teams; two-group leagues and cups cannot be used as a template yet. Clubs have no youth team and no logo, and the league is not added to cup quotas.
 - How the game renders appearance values (skin, hair, beard) and custom jersey images is only partly verified.
 - The season cost estimate "13 x monthly payroll" in the finance line is an unverified assumption.
 - New players: attributes, market value and salary are estimates fitted on the default database. A new player has no statistics history, and how the game reacts to players added this way is not verified in the game yet.
