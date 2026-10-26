@@ -166,6 +166,8 @@ public sealed class MainVm : ObservableObject
         var modsDir = Path.Combine(ModLocator.GameDataDir, "Mods");
         var dlg = new NewModDialog(modsDir, ModCreator.FindGameDir()) { Owner = Application.Current.MainWindow };
         if (dlg.ShowDialog() != true || dlg.GameDir == null) return;
+        // read the text boxes here: WPF controls cannot be touched from the background task below
+        var (modName, gameDir) = (dlg.ModName, dlg.GameDir);
 
         NewModResult? result = null;
         await RunBusy(Loc.T("Creating mod..."), async () =>
@@ -174,7 +176,7 @@ public sealed class MainVm : ObservableObject
             {
                 Directory.CreateDirectory(modsDir);
                 var progress = new Progress<string>(m => BusyText = m);
-                result = await Task.Run(() => ModCreator.Create(dlg.ModName, modsDir, dlg.GameDir, progress));
+                result = await Task.Run(() => ModCreator.Create(modName, modsDir, gameDir, progress));
             }
             catch (Exception e) when (e is IOException or UnauthorizedAccessException or InvalidOperationException)
             {
@@ -187,7 +189,7 @@ public sealed class MainVm : ObservableObject
         var entry = Mods.FirstOrDefault(m => string.Equals(m.DbPath, result.DatabasePath, StringComparison.OrdinalIgnoreCase));
         if (entry != null) SelectedMod = entry;
         else if (await OpenAsync(result.DatabasePath, null)) { }
-        Status = Loc.F("Mod '{0}' created from the default data. Choose it under 'Local mods' when starting a new career.", dlg.ModName);
+        Status = Loc.F("Mod '{0}' created from the default data. Choose it under 'Local mods' when starting a new career.", modName);
     }
 
     async void Browse()
